@@ -1,9 +1,6 @@
 package com.github.salomonbrys.kodein.internal
 
-import com.github.salomonbrys.kodein.Factory
-import com.github.salomonbrys.kodein.Kodein
-import com.github.salomonbrys.kodein.KodeinContainer
-import com.github.salomonbrys.kodein.KodeinWrappedType
+import com.github.salomonbrys.kodein.*
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 import java.util.*
@@ -22,12 +19,12 @@ internal class KodeinContainerImpl private constructor(private val _map: CMap, p
     /**
      * A cache that is filled each time a key is not found directly into the [_map] but by modifying the key's [Kodein.Key.argType].
      */
-    private val _cache = HashMap<Kodein.Key, Factory<*, Any>>()
+    private val _cache = HashMap<Kodein.Key, FactoryBinding<*, Any>>()
 
     /**
      * Class used to check for recursive dependencies, represents a node in the dependency tree.
      *
-     * Each factory, in their Factory@getInstance methods receives a Kodein instance to enable transient dependency.
+     * Each factory, in their FactoryBinding@getInstance methods receives a Kodein instance to enable transient dependency.
      * However, it is not the same kodein instance as the one used to get the main dependency.
      * Each time a transient dependency is needed, a new Kodein instance is constructed, with a new Node that has
      * the current Node as it's parent.
@@ -76,9 +73,9 @@ internal class KodeinContainerImpl private constructor(private val _map: CMap, p
      */
     internal constructor(builder: KodeinContainer.Builder) : this(builder._map)
 
-    override val bindings: Map<Kodein.Key, Factory<*, *>> get() = _map.bindings
+    override val bindings: Map<Kodein.Key, FactoryBinding<*, *>> get() = _map.bindings
 
-    override val overriddenBindings: Map<Kodein.Key, List<Factory<*, *>>> get() = _map.overrides
+    override val overriddenBindings: Map<Kodein.Key, List<FactoryBinding<*, *>>> get() = _map.overrides
 
     /**
      * The super type of this type.
@@ -113,7 +110,7 @@ internal class KodeinContainerImpl private constructor(private val _map: CMap, p
      * @param key The key associated to the factory that is requested.
      * @return The factory, or null if non is found in both maps.
      */
-    private fun get(key: Kodein.Key) : Factory<*, Any>? {
+    private fun get(key: Kodein.Key) : FactoryBinding<*, Any>? {
         _map[key]?.let { return it }
         _cache[key]?.let { return it }
         return null
@@ -131,7 +128,7 @@ internal class KodeinContainerImpl private constructor(private val _map: CMap, p
      * @param cache Whether the function needs to cache the result if a result is found (only the original key should be cached).
      * @return The found factory, or null if none is found.
      */
-    private fun _findFactoryOrNull(key: Kodein.Key, cache: Boolean) : Factory<*, Any>? {
+    private fun _findFactoryOrNull(key: Kodein.Key, cache: Boolean) : FactoryBinding<*, Any>? {
         get(key)?.let { return it }
 
         val rawType = key.argType.toRawType()
@@ -153,18 +150,18 @@ internal class KodeinContainerImpl private constructor(private val _map: CMap, p
         return found
     }
 
-    private fun _transformFactory(factory: Factory<*, Any>, key: Kodein.Key, overrideLevel: Int): (Any?) -> Any {
+    private fun _transformFactory(factory: FactoryBinding<*, Any>, key: Kodein.Key, overrideLevel: Int): Factory<Any?, Any> {
         _node?.check(key, overrideLevel)
         @Suppress("UNCHECKED_CAST")
-        return { arg -> (factory as Factory<Any?, Any>).getInstance(FactoryKodeinImpl(KodeinContainerImpl(_map, Node(key, overrideLevel, _node)), key, overrideLevel), key, arg) }
+        return { arg -> (factory as FactoryBinding<Any?, Any>).getInstance(FactoryKodeinImpl(KodeinContainerImpl(_map, Node(key, overrideLevel, _node)), key, overrideLevel), key, arg) }
     }
 
-    override fun factoryOrNull(key: Kodein.Key): ((Any?) -> Any)? {
+    override fun factoryOrNull(key: Kodein.Key): Factory<Any?, Any>? {
         val factory = _findFactoryOrNull(key, true) ?: return null
         return _transformFactory(factory, key, 0)
     }
 
-    override fun overriddenFactoryOrNull(key: Kodein.Key, overrideLevel: Int): ((Any?) -> Any)? {
+    override fun overriddenFactoryOrNull(key: Kodein.Key, overrideLevel: Int): Factory<Any?, Any>? {
         val factory = _map.getOverride(key, overrideLevel) ?: return null
         return _transformFactory(factory, key, overrideLevel + 1)
     }

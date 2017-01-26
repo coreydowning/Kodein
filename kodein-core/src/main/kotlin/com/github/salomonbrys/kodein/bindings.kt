@@ -1,71 +1,266 @@
+@file:Suppress("unused")
+
 package com.github.salomonbrys.kodein
 
 import java.lang.reflect.Type
 
 /**
- * @receiver The bindings map, obtained with [KodeinContainer.bindings].
- * @param bind The bind to look for.
- * @return Whether or not this binding can be found in the binding map, whatever the factory argument type.
- */
-operator fun Map<Kodein.Key, Factory<*, *>>.contains(bind: Kodein.Bind): Boolean = any { it.key.bind == bind }
-
-/**
- * @receiver The bindings map, obtained with [KodeinContainer.bindings].
- * @param type The type to look for.
- * @return Whether or not this type is bound in the binding map, whatever the tag or the factory argument type.
- */
-operator fun Map<Kodein.Key, Factory<*, *>>.contains(type: Type): Boolean = any { it.key.bind.type == type }
-
-/**
- * @receiver The bindings map, obtained with [KodeinContainer.bindings].
- * @param type The type to look for.
- * @return Whether or not this type is bound in the binding map, whatever the tag or the factory argument type.
- */
-@Deprecated("Use contains(Type) instead.", ReplaceWith("contains(type.type)"))
-operator fun Map<Kodein.Key, Factory<*, *>>.contains(type: TypeToken<*>): Boolean = contains(type.type)
-
-/**
- * @receiver The bindings map, obtained with [KodeinContainer.bindings].
- * @param bind The bind to look for.
- * @return The list of argument type that are bound with this binding. Each entry represents a different [Kodein.Key].
- */
-fun Map<Kodein.Key, Factory<*, *>>.factoryArgumentTypes(bind: Kodein.Bind): List<Type> = filter { it.key.bind == bind } .map { it.key.argType }
-
-/**
- * @receiver The bindings map, obtained with [KodeinContainer.bindings].
- * @param type The type to look for.
- * @return The list of tags that are bound with this type. Each entry represents a different [Kodein.Bind],
- *         but there may be multiple [Kodein.Key] for the same [Kodein.Bind].
- */
-fun Map<Kodein.Key, Factory<*, *>>.tags(type: Type): List<Any?> = filter { it.key.bind.type == type } .map { it.key.bind.tag } .distinct()
-
-/**
- * @receiver The bindings map, obtained with [KodeinContainer.bindings].
- * @param type The type to look for.
- * @return The list of tags that are bound with this type. Each entry represents a different [Kodein.Bind],
- *         but there may be multiple [Kodein.Key] for the same [Kodein.Bind].
- */
-@Deprecated("Use contains(Type) instead.", ReplaceWith("contains(type.type)"))
-fun Map<Kodein.Key, Factory<*, *>>.tags(type: TypeToken<*>): List<Any?> = tags(type.type)
-
-/**
- * @receiver The bindings map, obtained with [KodeinContainer.bindings].
- * @param tag The tag to look for.
- * @return The list of types that are bound with this tag. Each entry represents a different [Kodein.Bind],
- *         but there may be multiple [Kodein.Key] for the same [Kodein.Bind].
- */
-fun Map<Kodein.Key, Factory<*, *>>.types(tag: Any?): List<Type> = filter { it.key.bind.tag == tag } .map { it.key.bind.type } .distinct()
-
-/**
- * The description of all bindings in this map, using type simple display names.
+ * Concrete factory: each time an instance is needed, the function [creator] function will be called.
  *
- * @receiver The bindings map, obtained with [KodeinContainer.bindings].
+ * @param A The argument type.
+ * @param T The created type.
+ * @param argType The type object of the argument used by this factory.
+ * @param createdType The type of objects created by this factory.
+ * @property creator The function that will be called each time an instance is requested. Should create a new instance.
  */
-val Map<Kodein.Key, Factory<*, *>>.description: String get() = map { "        ${it.key.bind.description} with ${it.value.description}" }.joinToString("\n")
+class CFactoryBinding<in A, out T : Any>(argType: Type, createdType: Type, val creator: FactoryKodein.(A) -> T) : AFactoryBinding<A, T>("factory", argType, createdType) {
+    override fun getInstance(kodein: FactoryKodein, key: Kodein.Key, arg: A) = this.creator(kodein, arg)
+
+}
 
 /**
- * The description of all bindings in this map, using type full display names.
+ * Creates a factory: each time an instance is needed, the function [creator] function will be called.
  *
- * @receiver The bindings map, obtained with [KodeinContainer.bindings].
+ * A & T generics will be kept.
+ *
+ * @param A The argument type.
+ * @param T The created type.
+ * @param creator The function that will be called each time an instance is requested. Should create a new instance.
+ * @return A factory ready to be bound.
  */
-val Map<Kodein.Key, Factory<*, *>>.fullDescription: String get() = map { "        ${it.key.bind.fullDescription} with ${it.value.fullDescription}" }.joinToString("\n")
+inline fun <reified A, reified T : Any> Kodein.Builder.genericFactory(noinline creator: FactoryKodein.(A) -> T): CFactoryBinding<A, T>
+        = CFactoryBinding(genericToken<A>().type, genericToken<T>().type, creator)
+
+/**
+ * Creates a factory: each time an instance is needed, the function [creator] function will be called.
+ *
+ * A & T generics will be erased!
+ *
+ * @param A The argument type.
+ * @param T The created type.
+ * @param creator The function that will be called each time an instance is requested. Should create a new instance.
+ * @return A factory ready to be bound.
+ */
+inline fun <reified A, reified T : Any> Kodein.Builder.erasedFactory(noinline creator: FactoryKodein.(A) -> T): CFactoryBinding<A, T>
+        = CFactoryBinding(typeClass<A>(), T::class.java, creator)
+
+
+/**
+ * Concrete provider: each time an instance is needed, the function [creator] function will be called.
+ *
+ * A provider is like a [CFactoryBinding], but without argument.
+ *
+ * @param T The created type.
+ * @param createdType The type of objects created by this provider, *used for debug print only*.
+ * @property creator The function that will be called each time an instance is requested. Should create a new instance.
+ */
+class CProviderBinding<out T : Any>(createdType: Type, val creator: ProviderKodein.() -> T) : AProviderBinding<T>("provider", createdType) {
+    override fun getInstance(kodein: ProviderKodein, key: Kodein.Key) = this.creator(kodein)
+}
+
+/**
+ * Creates a factory: each time an instance is needed, the function [creator] function will be called.
+ *
+ * T generics will be kept.
+ *
+ * A provider is like a factory, but without argument.
+ *
+ * @param T The created type.
+ * @param creator The function that will be called each time an instance is requested. Should create a new instance.
+ * @return A provider ready to be bound.
+ */
+inline fun <reified T : Any> Kodein.Builder.genericProvider(noinline creator: ProviderKodein.() -> T) = CProviderBinding(genericToken<T>().type, creator)
+
+/**
+ * Creates a factory: each time an instance is needed, the function [creator] function will be called.
+ *
+ * T generics will be erased!
+ *
+ * A provider is like a factory, but without argument.
+ *
+ * @param T The created type.
+ * @param creator The function that will be called each time an instance is requested. Should create a new instance.
+ * @return A provider ready to be bound.
+ */
+inline fun <reified T : Any> Kodein.Builder.erasedProvider(noinline creator: ProviderKodein.() -> T) = CProviderBinding(T::class.java, creator)
+
+
+
+/**
+ * Singleton base: will create an instance on first request and will subsequently always return the same instance.
+ *
+ * @param T The created type.
+ * @param factoryName The name of this singleton factory, *used for debug print only*.
+ * @param createdType The type of the created object, *used for debug print only*.
+ * @property creator The function that will be called the first time an instance is requested. Guaranteed to be called only once. Should create a new instance.
+ */
+abstract class ASingletonBinding<out T : Any>(factoryName: String, createdType: Type, val creator: ProviderKodein.() -> T) : AProviderBinding<T>(factoryName, createdType) {
+
+    private var _instance: T? = null
+    private val _lock = Any()
+
+    override fun getInstance(kodein: ProviderKodein, key: Kodein.Key): T {
+        if (_instance != null)
+            return _instance!!
+        else
+            synchronized(_lock) {
+                if (_instance == null)
+                    _instance = kodein.creator()
+                return _instance!!
+            }
+    }
+}
+
+
+
+/**
+ * Concrete singleton: will create an instance on first request and will subsequently always return the same instance.
+ *
+ * @param T The created type.
+ * @param createdType The type of the created object, *used for debug print only*.
+ * @param creator The function that will be called the first time an instance is requested. Guaranteed to be called only once. Should create a new instance.
+ */
+class CSingletonBinding<out T : Any>(createdType: Type, creator: ProviderKodein.() -> T) : ASingletonBinding<T>("singleton", createdType, creator)
+
+/**
+ * Creates a singleton: will create an instance on first request and will subsequently always return the same instance.
+ *
+ * T generics will be kept.
+ *
+ * @param T The created type.
+ * @param creator The function that will be called the first time an instance is requested. Guaranteed to be called only once. Should create a new instance.
+ * @return A singleton ready to be bound.
+ */
+inline fun <reified T : Any> Kodein.Builder.genericSingleton(noinline creator: ProviderKodein.() -> T): AProviderBinding<T> = CSingletonBinding(genericToken<T>().type, creator)
+
+/**
+ * Creates a singleton: will create an instance on first request and will subsequently always return the same instance.
+ *
+ * T generics will be erased!
+ *
+ * @param T The created type.
+ * @param creator The function that will be called the first time an instance is requested. Guaranteed to be called only once. Should create a new instance.
+ * @return A singleton ready to be bound.
+ */
+inline fun <reified T : Any> Kodein.Builder.erasedSingleton(noinline creator: ProviderKodein.() -> T): AProviderBinding<T> = CSingletonBinding(T::class.java, creator)
+
+
+
+/**
+ * Concrete eager singleton: will create an instance as soon as kodein is ready (all bindings are set) and will always return this instance.
+ *
+ * @param T The created type.
+ * @param createdType The type of the created object.
+ * @param creator The function that will be called as soon as Kodein is ready. Guaranteed to be called only once. Should create a new instance.
+ */
+class CEagerSingletonBinding<out T : Any>(builder: Kodein.Builder, createdType: Type, creator: ProviderKodein.() -> T) : ASingletonBinding<T>("eagerSingleton", createdType, creator) {
+    init {
+        val key = Kodein.Key(Kodein.Bind(createdType, null), Unit::class.java)
+        builder.onProviderReady(key) { getInstance(this, key) }
+    }
+}
+
+/**
+ * Creates an eager singleton: will create an instance as soon as kodein is ready (all bindings are set) and will always return this instance.
+ *
+ * T generics will be kept.
+ *
+ * @param T The created type.
+ * @param creator The function that will be called as soon as Kodein is ready. Guaranteed to be called only once. Should create a new instance.
+ * @return An eager singleton ready to be bound.
+ */
+inline fun <reified T : Any> Kodein.Builder.genericEagerSingleton(noinline creator: ProviderKodein.() -> T): AProviderBinding<T> = CEagerSingletonBinding(this, genericToken<T>().type, creator)
+
+/**
+ * Creates an eager singleton: will create an instance as soon as kodein is ready (all bindings are set) and will always return this instance.
+ *
+ * T generics will be erased!
+ *
+ * @param T The created type.
+ * @param creator The function that will be called as soon as Kodein is ready. Guaranteed to be called only once. Should create a new instance.
+ * @return An eager singleton ready to be bound.
+ */
+inline fun <reified T : Any> Kodein.Builder.erasedEagerSingleton(noinline creator: ProviderKodein.() -> T): AProviderBinding<T> = CEagerSingletonBinding(this, T::class.java, creator)
+
+
+
+/**
+ * Concrete thread singleton: will create an instance on first request per thread and will subsequently always return the same instance for this thread.
+ *
+ * @param T The created type.
+ * @param createdType The type of the created objects, *used for debug print only*.
+ * @property creator The function that will be called the first time an instance is requested in a thread. Guaranteed to be called only once per thread. Should create a new instance.
+ */
+class CThreadSingletonBinding<out T : Any>(createdType: Type, val creator: ProviderKodein.() -> T) : AProviderBinding<T>("threadSingleton", createdType) {
+
+    private val _storage = ThreadLocal<T>()
+
+    override fun getInstance(kodein: ProviderKodein, key: Kodein.Key): T {
+        var instance = _storage.get()
+        if (instance == null) {
+            instance = kodein.creator()
+            _storage.set(instance)
+        }
+        return instance
+    }
+}
+
+/**
+ * Creates a thread singleton: will create an instance on first request per thread and will subsequently always return the same instance for this thread.
+ *
+ * T generics will be kept.
+ *
+ * @param T The created type.
+ * @param creator The function that will be called the first time an instance is requested in a thread. Guaranteed to be called only once per thread. Should create a new instance.
+ * @return A thread singleton ready to be bound.
+ */
+inline fun <reified T : Any> Kodein.Builder.genericThreadSingleton(noinline creator: ProviderKodein.() -> T): AProviderBinding<T> = CThreadSingletonBinding(genericToken<T>().type, creator)
+
+/**
+ * Creates a thread singleton: will create an instance on first request per thread and will subsequently always return the same instance for this thread.
+ *
+ * T generics will be erased!
+ *
+ * @param T The created type.
+ * @param creator The function that will be called the first time an instance is requested in a thread. Guaranteed to be called only once per thread. Should create a new instance.
+ * @return A thread singleton ready to be bound.
+ */
+inline fun <reified T : Any> Kodein.Builder.erasedThreadSingleton(noinline creator: ProviderKodein.() -> T): AProviderBinding<T> = CThreadSingletonBinding(T::class.java, creator)
+
+
+
+/**
+ * Concrete instance provider: will always return the given instance.
+ *
+ * @param T The type of the instance.
+ * @param instanceType The type of the object, *used for debug print only*.
+ * @property instance The object that will always be returned.
+ */
+class CInstanceBinding<out T : Any>(instanceType: Type, val instance: T) : AProviderBinding<T>("instance", instanceType) {
+    override fun getInstance(kodein: ProviderKodein, key: Kodein.Key): T = this.instance
+
+    override val description: String get() = "$factoryName ( ${createdType.simpleDispString} ) "
+    override val fullDescription: String get() = "$factoryName ( ${createdType.fullDispString} ) "
+}
+
+/**
+ * Creates an instance provider: will always return the given instance.
+ *
+ * T generics will be kept.
+ *
+ * @param T The type of the instance.
+ * @param instance The object that will always be returned.
+ * @return An instance provider ready to be bound.
+ */
+inline fun <reified T : Any> Kodein.Builder.genericInstance(instance: T) = CInstanceBinding(genericToken<T>().type, instance)
+
+/**
+ * Creates an instance provider: will always return the given instance.
+ *
+ * T generics will be erased!
+ *
+ * @param T The type of the instance.
+ * @param instance The object that will always be returned.
+ * @return An instance provider ready to be bound.
+ */
+inline fun <reified T : Any> Kodein.Builder.erasedInstance(instance: T) = CInstanceBinding(T::class.java, instance)

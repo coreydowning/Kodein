@@ -1,9 +1,6 @@
 package com.github.salomonbrys.kodein.internal
 
-import com.github.salomonbrys.kodein.FactoryKodein
-import com.github.salomonbrys.kodein.Kodein
-import com.github.salomonbrys.kodein.KodeinContainer
-import com.github.salomonbrys.kodein.TKodein
+import com.github.salomonbrys.kodein.*
 import java.util.*
 
 /**
@@ -38,6 +35,6 @@ internal open class KodeinImpl internal constructor(final override val container
 
 @Suppress("UNCHECKED_CAST")
 internal open class FactoryKodeinImpl internal constructor(container: KodeinContainer, private val _key: Kodein.Key, private val _overrideLevel: Int) : KodeinImpl(container), FactoryKodein {
-    override fun <A, T : Any> overriddenFactory(): (A) -> T = container.overriddenNonNullFactory(_key, _overrideLevel) as (A) -> T
-    override fun <A, T : Any> overriddenFactoryOrNull(): ((A) -> T)? = container.overriddenFactoryOrNull(_key, _overrideLevel) as ((A) -> T)?
+    override fun <A, T : Any> overriddenFactory(): Factory<A, T> = container.overriddenNonNullFactory(_key, _overrideLevel) as Factory<A, T>
+    override fun <A, T : Any> overriddenFactoryOrNull(): Factory<A, T>? = container.overriddenFactoryOrNull(_key, _overrideLevel) as Factory<A, T>?
 }

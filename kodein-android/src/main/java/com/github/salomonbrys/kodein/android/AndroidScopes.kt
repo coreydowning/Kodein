@@ -229,7 +229,7 @@ object androidBroadcastReceiverScope : AndroidScope<BroadcastReceiver> {
  * @return The factory to bind.
  */
 @Deprecated("Use scopedSingleton instead.", ReplaceWith("scopedSingleton(androidContextScope, creator)", "com.github.salomonbrys.kodein.scopedSingleton"))
-inline fun <reified T : Any> Kodein.Builder.contextSingleton(noinline creator: Kodein.(Context) -> T): Factory<Context, T> = genericScopedSingleton(androidContextScope, creator)
+inline fun <reified T : Any> Kodein.Builder.contextSingleton(noinline creator: Kodein.(Context) -> T): FactoryBinding<Context, T> = genericScopedSingleton(androidContextScope, creator)
 
 /**
  * Creates an activity scoped singleton factory, effectively a `factory { Activity -> T }`.
@@ -239,7 +239,7 @@ inline fun <reified T : Any> Kodein.Builder.contextSingleton(noinline creator: K
  * @return The factory to bind.
  */
 @Deprecated("Use scopedSingleton instead.", ReplaceWith("scopedSingleton(androidActivityScope, creator)", "com.github.salomonbrys.kodein.scopedSingleton"))
-inline fun <reified T : Any> Kodein.Builder.activitySingleton(noinline creator: Kodein.(Activity) -> T): Factory<Activity, T> = genericScopedSingleton(androidActivityScope, creator)
+inline fun <reified T : Any> Kodein.Builder.activitySingleton(noinline creator: Kodein.(Activity) -> T): FactoryBinding<Activity, T> = genericScopedSingleton(androidActivityScope, creator)
 
 /**
  * Creates an activity auto-scoped singleton factory, effectively a `provider { -> T }`.
@@ -251,7 +251,7 @@ inline fun <reified T : Any> Kodein.Builder.activitySingleton(noinline creator: 
  * @return The provider to bind.
  */
 @Deprecated("Use autoScopedSingleton instead.", ReplaceWith("autoScopedSingleton(androidActivityScope, creator)", "com.github.salomonbrys.kodein.autoScopedSingleton"))
-inline fun <reified T : Any> Kodein.Builder.autoActivitySingleton(noinline creator: Kodein.(Activity) -> T): Factory<Unit, T> = genericAutoScopedSingleton(androidActivityScope, creator)
+inline fun <reified T : Any> Kodein.Builder.autoActivitySingleton(noinline creator: Kodein.(Activity) -> T): FactoryBinding<Unit, T> = genericAutoScopedSingleton(androidActivityScope, creator)
 
 /**
  * Creates a fragment scoped singleton factory, effectively a `factory { Fragment -> T }`.
@@ -261,7 +261,7 @@ inline fun <reified T : Any> Kodein.Builder.autoActivitySingleton(noinline creat
  * @return The factory to bind.
  */
 @Deprecated("Use scopedSingleton instead.", ReplaceWith("scopedSingleton(androidFragmentScope, creator)", "com.github.salomonbrys.kodein.scopedSingleton"))
-inline fun <reified T : Any> Kodein.Builder.fragmentSingleton(noinline creator: Kodein.(Fragment) -> T): Factory<Fragment, T> = genericScopedSingleton(androidFragmentScope, creator)
+inline fun <reified T : Any> Kodein.Builder.fragmentSingleton(noinline creator: Kodein.(Fragment) -> T): FactoryBinding<Fragment, T> = genericScopedSingleton(androidFragmentScope, creator)
 
 /**
  * Creates a support fragment scoped singleton factory, effectively a `factory { Fragment -> T }`.
@@ -271,7 +271,7 @@ inline fun <reified T : Any> Kodein.Builder.fragmentSingleton(noinline creator: 
  * @return The factory to bind.
  */
 @Deprecated("Use scopedSingleton instead.", ReplaceWith("scopedSingleton(androidSupportFragmentScope, creator)", "com.github.salomonbrys.kodein.scopedSingleton"))
-inline fun <reified T : Any> Kodein.Builder.supportFragmentSingleton(noinline creator: Kodein.(SupportFragment) -> T): Factory<SupportFragment, T> = genericScopedSingleton(androidSupportFragmentScope, creator)
+inline fun <reified T : Any> Kodein.Builder.supportFragmentSingleton(noinline creator: Kodein.(SupportFragment) -> T): FactoryBinding<SupportFragment, T> = genericScopedSingleton(androidSupportFragmentScope, creator)
 
 /**
  * Creates a service scoped singleton factory, effectively a `factory { Service -> T }`.
@@ -281,7 +281,7 @@ inline fun <reified T : Any> Kodein.Builder.supportFragmentSingleton(noinline cr
  * @return The factory to bind.
  */
 @Deprecated("Use scopedSingleton instead.", ReplaceWith("scopedSingleton(androidServiceScope, creator)", "com.github.salomonbrys.kodein.scopedSingleton"))
-inline fun <reified T : Any> Kodein.Builder.serviceSingleton(noinline creator: Kodein.(Service) -> T): Factory<Service, T> = genericScopedSingleton(androidServiceScope, creator)
+inline fun <reified T : Any> Kodein.Builder.serviceSingleton(noinline creator: Kodein.(Service) -> T): FactoryBinding<Service, T> = genericScopedSingleton(androidServiceScope, creator)
 
 /**
  * Creates a broadcast receiver scoped singleton factory, effectively a `factory { BroadcastReceiver -> T }`.
@@ -291,4 +291,4 @@ inline fun <reified T : Any> Kodein.Builder.serviceSingleton(noinline creator: K
  * @return The factory to bind.
  */
 @Deprecated("Use scopedSingleton instead.", ReplaceWith("scopedSingleton(androidBroadcastReceiverScope, creator)", "com.github.salomonbrys.kodein.scopedSingleton"))
-inline fun <reified T : Any> Kodein.Builder.broadcastReceiverSingleton(noinline creator: Kodein.(BroadcastReceiver) -> T): Factory<BroadcastReceiver, T> = genericScopedSingleton(androidBroadcastReceiverScope, creator)
+inline fun <reified T : Any> Kodein.Builder.broadcastReceiverSingleton(noinline creator: Kodein.(BroadcastReceiver) -> T): FactoryBinding<BroadcastReceiver, T> = genericScopedSingleton(androidBroadcastReceiverScope, creator)

@@ -1,14 +1,12 @@
 package com.github.salomonbrys.kodein.internal
 
-import com.github.salomonbrys.kodein.Factory
-import com.github.salomonbrys.kodein.Kodein
-import com.github.salomonbrys.kodein.KodeinWrappedType
+import com.github.salomonbrys.kodein.*
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.WildcardType
 import java.util.*
 
 /**
- * Behaves like a `Map<Kodein.Key, Factory<*, Any>>`, but with some extra caching.
+ * Behaves like a `Map<Kodein.Key, FactoryBinding<*, Any>>`, but with some extra caching.
  *
  * Each time a new entry is added, the entry is put as-is in the [_map].
  * If the keys's [Kodein.Key.argType] is a `ParameterizedType` that is entirely wildcard, then the [_raws] map is given an entry with it's raw type.
@@ -19,14 +17,14 @@ internal class CMap {
     /**
      * The regular map associating keys to factories
      */
-    private val _map  = HashMap<Kodein.Key, Factory<*, Any>>()
+    private val _map = HashMap<Kodein.Key, FactoryBinding<*, Any>>()
 
-    private val _overrides  = HashMap<Kodein.Key, LinkedList<Factory<*, Any>>>()
+    private val _overrides = HashMap<Kodein.Key, LinkedList<FactoryBinding<*, Any>>>()
 
     /**
      * A map that contains "raws" version of keys in [_map] whose [Kodein.Key.argType] are `ParameterizedType`.
      */
-    private val _raws = HashMap<Kodein.Key, Factory<*, Any>>()
+    private val _raws = HashMap<Kodein.Key, FactoryBinding<*, Any>>()
 
     /**
      * Get the factory associated with the given key, either from the regular map, or from the raw pre-cache.
@@ -34,13 +32,13 @@ internal class CMap {
      * @param key The key of the factory to retrieve.
      * @return The factory, or null if none was found.
      */
-    operator fun get(key: Kodein.Key) : Factory<*, Any>? {
+    operator fun get(key: Kodein.Key) : FactoryBinding<*, Any>? {
         _map[key]?.let { return it }
         _raws[key]?.let { return it }
         return null
     }
 
-    fun getOverride(key: Kodein.Key, overrideLevel: Int) : Factory<*, Any>? {
+    fun getOverride(key: Kodein.Key, overrideLevel: Int) : FactoryBinding<*, Any>? {
         _overrides[key]?.let { return it.getOrNull(overrideLevel) }
         return null
     }
@@ -96,7 +94,7 @@ internal class CMap {
      * @param key The key to add.
      * @param key The associated factory to add.
      */
-    operator fun set(key: Kodein.Key, factory: Factory<*, Any>) {
+    operator fun set(key: Kodein.Key, factory: FactoryBinding<*, Any>) {
         val overridden = _map.put(key, factory)
         if (overridden != null)
             _overrides.getOrPut(key, { LinkedList() }).addFirst(overridden)
@@ -111,7 +109,7 @@ internal class CMap {
      *
      * @param bindings mappings to be stored in this map.
      */
-    fun putAll(bindings: Map<Kodein.Key, Factory<*, *>>) {
+    fun putAll(bindings: Map<Kodein.Key, FactoryBinding<*, *>>) {
         for ((key, factory) in bindings)
             set(key, factory)
     }
@@ -124,7 +122,7 @@ internal class CMap {
     /**
      * An immutable view of the [_map].
      */
-    val bindings: Map<Kodein.Key, Factory<*, *>> = ImmutableMapView(_map)
+    val bindings: BindingsMap = ImmutableMapView(_map)
 
-    val overrides: Map<Kodein.Key, List<Factory<*, *>>> = ImmutableMapView(_overrides)
+    val overrides: BindingsListMap = ImmutableMapView(_overrides)
 }

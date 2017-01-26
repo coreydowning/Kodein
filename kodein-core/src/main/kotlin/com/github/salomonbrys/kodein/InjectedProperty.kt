@@ -87,9 +87,9 @@ abstract class InjectedProperty<out T> internal constructor(val key: Kodein.Key)
  *
  * @param key The key of the factory that will be injected.
  */
-class InjectedFactoryProperty<in A, out T : Any>(key: Kodein.Key) : InjectedProperty<(A) -> T>(key) {
+class InjectedFactoryProperty<in A, out T : Any>(key: Kodein.Key) : InjectedProperty<Factory<A, T>>(key) {
     @Suppress("UNCHECKED_CAST")
-    override fun _getInjection(container: KodeinContainer) = container.nonNullFactory(key) as (A) -> T
+    override fun _getInjection(container: KodeinContainer) = container.nonNullFactory(key) as Factory<A, T>
     override val _type = "factory"
 }
 
@@ -98,9 +98,9 @@ class InjectedFactoryProperty<in A, out T : Any>(key: Kodein.Key) : InjectedProp
  *
  * @param key The key of the factory that will be injected.
  */
-class InjectedNullableFactoryProperty<in A, out T : Any>(key: Kodein.Key) : InjectedProperty<((A) -> T)?>(key) {
+class InjectedNullableFactoryProperty<in A, out T : Any>(key: Kodein.Key) : InjectedProperty<Factory<A, T>?>(key) {
     @Suppress("UNCHECKED_CAST")
-    override fun _getInjection(container: KodeinContainer) = container.factoryOrNull(key) as ((A) -> T)?
+    override fun _getInjection(container: KodeinContainer) = container.factoryOrNull(key) as Factory<A, T>?
     override val _type = "factory"
 }
 
@@ -109,9 +109,9 @@ class InjectedNullableFactoryProperty<in A, out T : Any>(key: Kodein.Key) : Inje
  *
  * @param bind The bind (type & tag) of the provider that will be injected.
  */
-class InjectedProviderProperty<out T : Any>(bind: Kodein.Bind) : InjectedProperty<() -> T>(Kodein.Key(bind, Unit::class.java)) {
+class InjectedProviderProperty<out T : Any>(bind: Kodein.Bind) : InjectedProperty<Provider<T>>(Kodein.Key(bind, Unit::class.java)) {
     @Suppress("UNCHECKED_CAST")
-    override fun _getInjection(container: KodeinContainer) = container.nonNullProvider(key.bind) as () -> T
+    override fun _getInjection(container: KodeinContainer) = container.nonNullProvider(key.bind) as Provider<T>
     override val _type = "provider"
 }
 
@@ -120,9 +120,9 @@ class InjectedProviderProperty<out T : Any>(bind: Kodein.Bind) : InjectedPropert
  *
  * @param bind The bind (type & tag) of the provider that will be injected.
  */
-class InjectedNullableProviderProperty<out T : Any>(bind: Kodein.Bind) : InjectedProperty<(() -> T)?>(Kodein.Key(bind, Unit::class.java)) {
+class InjectedNullableProviderProperty<out T : Any>(bind: Kodein.Bind) : InjectedProperty<Provider<T>?>(Kodein.Key(bind, Unit::class.java)) {
     @Suppress("UNCHECKED_CAST")
-    override fun _getInjection(container: KodeinContainer) = container.providerOrNull(key.bind) as (() -> T)?
+    override fun _getInjection(container: KodeinContainer) = container.providerOrNull(key.bind) as Provider<T>?
     override val _type = "provider"
 }
 
@@ -159,7 +159,7 @@ class InjectedNullableInstanceProperty<out T : Any>(bind: Kodein.Bind) : Injecte
  * @param arg A function that provides the argument that will be passed to the factory.
  * @return An injected provider property that, when called, will call the receiver factory with the given argument.
  */
-inline fun <A, T : Any> InjectedProperty<(A) -> T>.toProvider(crossinline arg: () -> A): Lazy<() -> T> = lazy { { value(arg()) } }
+inline fun <A, T : Any> InjectedProperty<Factory<A, T>>.toProvider(crossinline arg: () -> A): Lazy<Provider<T>> = lazy { { value(arg()) } }
 
 /**
  * Transforms an injected nullable factory property into an injected nullable provider property by currying the factory with the given argument.
@@ -171,7 +171,7 @@ inline fun <A, T : Any> InjectedProperty<(A) -> T>.toProvider(crossinline arg: (
  * @return An injected provider property that, when called, will call the receiver factory (if not null) with the given argument.
  */
 @JvmName("toNullableProvider")
-inline fun <A, T : Any> InjectedProperty<((A) -> T)?>.toProvider(crossinline arg: () -> A): Lazy<(() -> T)?> = lazy {
+inline fun <A, T : Any> InjectedProperty<Factory<A, T>?>.toProvider(crossinline arg: () -> A): Lazy<Provider<T>?> = lazy {
     val v = value ?: return@lazy null
     return@lazy { v(arg()) }
 }
@@ -185,7 +185,7 @@ inline fun <A, T : Any> InjectedProperty<((A) -> T)?>.toProvider(crossinline arg
  * @param arg A function that provides the argument that will be passed to the factory.
  * @return An injected instance property that, when injected, will call the receiver factory with the given argument.
  */
-inline fun <A, T : Any> InjectedProperty<(A) -> T>.toInstance(crossinline arg: () -> A): Lazy<T> = lazy { value(arg()) }
+inline fun <A, T : Any> InjectedProperty<Factory<A, T>>.toInstance(crossinline arg: () -> A): Lazy<T> = lazy { value(arg()) }
 
 /**
  * Transforms an injected factory property into an injected instance property by currying the factory with the given argument.
@@ -197,7 +197,7 @@ inline fun <A, T : Any> InjectedProperty<(A) -> T>.toInstance(crossinline arg: (
  * @return An injected instance property that, when injected, will call the receiver factory with the given argument.
  */
 @JvmName("toNullableInstance")
-inline fun <A, T : Any> InjectedProperty<((A) -> T)?>.toInstance(crossinline arg: () -> A): Lazy<T?> = lazy {
+inline fun <A, T : Any> InjectedProperty<Factory<A, T>?>.toInstance(crossinline arg: () -> A): Lazy<T?> = lazy {
     val v = value ?: return@lazy null
     return@lazy v(arg())
 }

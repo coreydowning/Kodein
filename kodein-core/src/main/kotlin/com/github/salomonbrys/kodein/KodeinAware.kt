@@ -32,7 +32,7 @@ interface KodeinAwareBase {
  * @throws Kodein.NotFoundException if no factory was found.
  * @throws Kodein.DependencyLoopException When calling the factory function, if the instance construction triggered a dependency loop.
  */
-inline fun <reified A, reified T : Any> KodeinAwareBase.genericFactory(tag: Any? = null): (A) -> T = kodein.typed.factory(genericToken<A>(), genericToken<T>(), tag)
+inline fun <reified A, reified T : Any> KodeinAwareBase.genericFactory(tag: Any? = null): Factory<A, T> = kodein.typed.factory(genericToken<A>(), genericToken<T>(), tag)
 
 /**
  * Gets a factory of `T` for the given argument type, return type and tag.
@@ -49,7 +49,7 @@ inline fun <reified A, reified T : Any> KodeinAwareBase.genericFactory(tag: Any?
  * @throws Kodein.NotFoundException if no factory was found.
  * @throws Kodein.DependencyLoopException When calling the factory function, if the instance construction triggered a dependency loop.
  */
-inline fun <reified A, reified T : Any> KodeinAwareBase.erasedFactory(tag: Any? = null): (A) -> T = kodein.typed.factory(typeClass<A>(), T::class.java, tag)
+inline fun <reified A, reified T : Any> KodeinAwareBase.erasedFactory(tag: Any? = null): Factory<A, T> = kodein.typed.factory(typeClass<A>(), T::class.java, tag)
 
 /**
  * Gets a factory of `T` for the given argument type, return type and tag, or nul if none is found.
@@ -65,7 +65,7 @@ inline fun <reified A, reified T : Any> KodeinAwareBase.erasedFactory(tag: Any? 
  * @return A factory, or null if no factory was found.
  * @throws Kodein.DependencyLoopException When calling the factory function, if the instance construction triggered a dependency loop.
  */
-inline fun <reified A, reified T : Any> KodeinAwareBase.genericFactoryOrNull(tag: Any? = null): ((A) -> T)? = kodein.typed.factoryOrNull(genericToken<A>(), genericToken<T>(), tag)
+inline fun <reified A, reified T : Any> KodeinAwareBase.genericFactoryOrNull(tag: Any? = null): Factory<A, T>? = kodein.typed.factoryOrNull(genericToken<A>(), genericToken<T>(), tag)
 
 /**
  * Gets a factory of `T` for the given argument type, return type and tag, or nul if none is found.
@@ -81,7 +81,7 @@ inline fun <reified A, reified T : Any> KodeinAwareBase.genericFactoryOrNull(tag
  * @return A factory, or null if no factory was found.
  * @throws Kodein.DependencyLoopException When calling the factory function, if the instance construction triggered a dependency loop.
  */
-inline fun <reified A, reified T : Any> KodeinAwareBase.erasedFactoryOrNull(tag: Any? = null): ((A) -> T)? = kodein.typed.factoryOrNull(typeClass<A>(), T::class.java, tag)
+inline fun <reified A, reified T : Any> KodeinAwareBase.erasedFactoryOrNull(tag: Any? = null): Factory<A, T>? = kodein.typed.factoryOrNull(typeClass<A>(), T::class.java, tag)
 
 /**
  * Gets a provider of `T` for the given type and tag.
@@ -97,7 +97,7 @@ inline fun <reified A, reified T : Any> KodeinAwareBase.erasedFactoryOrNull(tag:
  * @throws Kodein.NotFoundException if no provider was found.
  * @throws Kodein.DependencyLoopException When calling the provider function, if the instance construction triggered a dependency loop.
  */
-inline fun <reified T : Any> KodeinAwareBase.genericProvider(tag: Any? = null): () -> T = kodein.typed.provider(genericToken<T>(), tag)
+inline fun <reified T : Any> KodeinAwareBase.genericProvider(tag: Any? = null): Provider<T> = kodein.typed.provider(genericToken<T>(), tag)
 
 /**
  * Gets a provider of `T` for the given type and tag.
@@ -113,7 +113,7 @@ inline fun <reified T : Any> KodeinAwareBase.genericProvider(tag: Any? = null): 
  * @throws Kodein.NotFoundException if no provider was found.
  * @throws Kodein.DependencyLoopException When calling the provider function, if the instance construction triggered a dependency loop.
  */
-inline fun <reified T : Any> KodeinAwareBase.erasedProvider(tag: Any? = null): () -> T = kodein.typed.provider(T::class.java, tag)
+inline fun <reified T : Any> KodeinAwareBase.erasedProvider(tag: Any? = null): Provider<T> = kodein.typed.provider(T::class.java, tag)
 
 /**
  * Gets a provider of `T` for the given type and tag, or null if none is found.
@@ -129,7 +129,7 @@ inline fun <reified T : Any> KodeinAwareBase.erasedProvider(tag: Any? = null): (
  * @throws Kodein.DependencyLoopException When calling the provider function, if the instance construction triggered a dependency loop.
  */
 @Suppress("UNCHECKED_CAST")
-inline fun <reified T : Any> KodeinAwareBase.genericProviderOrNull(tag: Any? = null): (() -> T)? = kodein.typed.providerOrNull(genericToken<T>(), tag)
+inline fun <reified T : Any> KodeinAwareBase.genericProviderOrNull(tag: Any? = null): Provider<T>? = kodein.typed.providerOrNull(genericToken<T>(), tag)
 
 /**
  * Gets a provider of `T` for the given type and tag, or null if none is found.
@@ -145,7 +145,7 @@ inline fun <reified T : Any> KodeinAwareBase.genericProviderOrNull(tag: Any? = n
  * @throws Kodein.DependencyLoopException When calling the provider function, if the instance construction triggered a dependency loop.
  */
 @Suppress("UNCHECKED_CAST")
-inline fun <reified T : Any> KodeinAwareBase.erasedProviderOrNull(tag: Any? = null): (() -> T)? = kodein.typed.providerOrNull(T::class.java, tag)
+inline fun <reified T : Any> KodeinAwareBase.erasedProviderOrNull(tag: Any? = null): Provider<T>? = kodein.typed.providerOrNull(T::class.java, tag)
 
 /**
  * Gets an instance of `T` for the given type and tag.
@@ -234,7 +234,7 @@ class CurriedKodeinFactory<out A>(val kodein: () -> Kodein, val arg: () -> A, va
  * @throws Kodein.NotFoundException if no factory was found.
  * @throws Kodein.DependencyLoopException When calling the provider function, if the instance construction triggered a dependency loop.
  */
-inline fun <reified T : Any> CurriedKodeinFactory<*>.genericProvider(tag: Any? = null): () -> T = kodein().typed.factory(argType, genericToken<T>(), tag).toProvider(arg)
+inline fun <reified T : Any> CurriedKodeinFactory<*>.genericProvider(tag: Any? = null): Provider<T> = kodein().typed.factory(argType, genericToken<T>(), tag).toProvider(arg)
 
 /**
  * Gets a provider of `T` for the given tag from a curried factory with an `A` argument.
@@ -249,7 +249,7 @@ inline fun <reified T : Any> CurriedKodeinFactory<*>.genericProvider(tag: Any? =
  * @throws Kodein.NotFoundException if no factory was found.
  * @throws Kodein.DependencyLoopException When calling the provider function, if the instance construction triggered a dependency loop.
  */
-inline fun <reified T : Any> CurriedKodeinFactory<*>.erasedProvider(tag: Any? = null): () -> T = kodein().typed.factory(argType, T::class.java, tag).toProvider(arg)
+inline fun <reified T : Any> CurriedKodeinFactory<*>.erasedProvider(tag: Any? = null): Provider<T> = kodein().typed.factory(argType, T::class.java, tag).toProvider(arg)
 
 /**
  * Gets a provider of `T` for the given tag from a curried factory with an `A` argument, or null if none is found.
@@ -263,7 +263,7 @@ inline fun <reified T : Any> CurriedKodeinFactory<*>.erasedProvider(tag: Any? = 
  * @return A provider, or null if no factory was found.
  * @throws Kodein.DependencyLoopException When calling the provider function, if the instance construction triggered a dependency loop.
  */
-inline fun <reified T : Any> CurriedKodeinFactory<*>.genericProviderOrNull(tag: Any? = null): (() -> T)? = kodein().typed.factoryOrNull(argType, genericToken<T>(), tag)?.toProvider(arg)
+inline fun <reified T : Any> CurriedKodeinFactory<*>.genericProviderOrNull(tag: Any? = null): Provider<T>? = kodein().typed.factoryOrNull(argType, genericToken<T>(), tag)?.toProvider(arg)
 
 /**
  * Gets a provider of `T` for the given tag from a curried factory with an `A` argument, or null if none is found.
@@ -277,7 +277,7 @@ inline fun <reified T : Any> CurriedKodeinFactory<*>.genericProviderOrNull(tag: 
  * @return A provider, or null if no factory was found.
  * @throws Kodein.DependencyLoopException When calling the provider function, if the instance construction triggered a dependency loop.
  */
-inline fun <reified T : Any> CurriedKodeinFactory<*>.erasedProviderOrNull(tag: Any? = null): (() -> T)? = kodein().typed.factoryOrNull(argType, T::class.java, tag)?.toProvider(arg)
+inline fun <reified T : Any> CurriedKodeinFactory<*>.erasedProviderOrNull(tag: Any? = null): Provider<T>? = kodein().typed.factoryOrNull(argType, T::class.java, tag)?.toProvider(arg)
 
 /**
  * Gets an instance of `T` for the given tag from a curried factory with an `A` argument.

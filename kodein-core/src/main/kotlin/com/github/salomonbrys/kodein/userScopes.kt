@@ -110,7 +110,7 @@ abstract class AScoped<in A, out C, out T : Any>(
         override val createdType: Type,
         override val factoryName: String,
         private val _creator: ProviderKodein.(C) -> T
-) : Factory<A, T> {
+) : FactoryBinding<A, T> {
 
     @Suppress("UNCHECKED_CAST")
     override fun getInstance(kodein: FactoryKodein, key: Kodein.Key, arg: A): T {

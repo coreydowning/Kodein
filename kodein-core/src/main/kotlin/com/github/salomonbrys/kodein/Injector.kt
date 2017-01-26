@@ -23,7 +23,7 @@ import java.util.*
  * ```
  */
 @Suppress("unused")
-class KodeinInjector() : KodeinInjectedBase {
+class KodeinInjector : KodeinInjectedBase {
 
     override val injector = this
 
@@ -103,7 +103,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the factory, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun factory(argType: Type, type: Type, tag: Any? = null): InjectedProperty<(Any?) -> Any> = _register(InjectedFactoryProperty(Kodein.Key(Kodein.Bind(type, tag), argType)))
+        fun factory(argType: Type, type: Type, tag: Any? = null): InjectedProperty<Factory<Any?, Any>> = _register(InjectedFactoryProperty(Kodein.Key(Kodein.Bind(type, tag), argType)))
 
         /**
          * Creates an injected factory property delegate.
@@ -117,7 +117,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the factory, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun <T : Any> factory(argType: Type, type: Class<T>, tag: Any? = null): InjectedProperty<(Any?) -> T> = factory(argType, type as Type, tag) as InjectedProperty<(Any?) -> T>
+        fun <T : Any> factory(argType: Type, type: Class<T>, tag: Any? = null): InjectedProperty<Factory<Any?, T>> = factory(argType, type as Type, tag) as InjectedProperty<Factory<Any?, T>>
 
         /**
          * Creates an injected factory property delegate.
@@ -131,7 +131,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the factory, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun <T : Any> factory(argType: Type, type: TypeToken<T>, tag: Any? = null): InjectedProperty<(Any?) -> T> = factory(argType, type.type, tag) as InjectedProperty<(Any?) -> T>
+        fun <T : Any> factory(argType: Type, type: TypeToken<T>, tag: Any? = null): InjectedProperty<Factory<Any?, T>> = factory(argType, type.type, tag) as InjectedProperty<Factory<Any?, T>>
 
         /**
          * Creates an injected factory property delegate.
@@ -145,7 +145,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the factory, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun <A> factory(argType: Class<A>, type: Type, tag: Any? = null): InjectedProperty<(A) -> Any> = factory(argType as Type, type, tag)
+        fun <A> factory(argType: Class<A>, type: Type, tag: Any? = null): InjectedProperty<Factory<A, Any>> = factory(argType as Type, type, tag)
 
         /**
          * Creates an injected factory property delegate.
@@ -160,7 +160,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the factory, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun <A, T : Any> factory(argType: Class<A>, type: Class<T>, tag: Any? = null): InjectedProperty<(A) -> T> = factory(argType as Type, type as Type, tag) as InjectedProperty<(A) -> T>
+        fun <A, T : Any> factory(argType: Class<A>, type: Class<T>, tag: Any? = null): InjectedProperty<Factory<A, T>> = factory(argType as Type, type as Type, tag) as InjectedProperty<Factory<A, T>>
 
         /**
          * Creates an injected factory property delegate.
@@ -175,7 +175,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the factory, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun <A, T : Any> factory(argType: Class<A>, type: TypeToken<T>, tag: Any? = null): InjectedProperty<(A) -> T> = factory(argType as Type, type.type, tag) as InjectedProperty<(A) -> T>
+        fun <A, T : Any> factory(argType: Class<A>, type: TypeToken<T>, tag: Any? = null): InjectedProperty<Factory<A, T>> = factory(argType as Type, type.type, tag) as InjectedProperty<Factory<A, T>>
 
         /**
          * Creates an injected factory property delegate.
@@ -189,7 +189,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the factory, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun <A> factory(argType: TypeToken<A>, type: Type, tag: Any? = null): InjectedProperty<(A) -> Any> = factory(argType.type, type, tag)
+        fun <A> factory(argType: TypeToken<A>, type: Type, tag: Any? = null): InjectedProperty<Factory<A, Any>> = factory(argType.type, type, tag)
 
         /**
          * Creates an injected factory property delegate.
@@ -204,7 +204,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the factory, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun <A, T : Any> factory(argType: TypeToken<A>, type: Class<T>, tag: Any? = null): InjectedProperty<(A) -> T> = factory(argType.type, type as Type, tag) as InjectedProperty<(A) -> T>
+        fun <A, T : Any> factory(argType: TypeToken<A>, type: Class<T>, tag: Any? = null): InjectedProperty<Factory<A, T>> = factory(argType.type, type as Type, tag) as InjectedProperty<Factory<A, T>>
 
         /**
          * Creates an injected factory property delegate.
@@ -219,7 +219,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the factory, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun <A, T : Any> factory(argType: TypeToken<A>, type: TypeToken<T>, tag: Any? = null): InjectedProperty<(A) -> T> = factory(argType.type, type.type, tag) as InjectedProperty<(A) -> T>
+        fun <A, T : Any> factory(argType: TypeToken<A>, type: TypeToken<T>, tag: Any? = null): InjectedProperty<Factory<A, T>> = factory(argType.type, type.type, tag) as InjectedProperty<Factory<A, T>>
 
 
 
@@ -234,7 +234,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the factory, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun factoryOrNull(argType: Type, type: Type, tag: Any? = null): InjectedProperty<((Any?) -> Any)?> = _register(InjectedNullableFactoryProperty(Kodein.Key(Kodein.Bind(type, tag), argType)))
+        fun factoryOrNull(argType: Type, type: Type, tag: Any? = null): InjectedProperty<Factory<Any?, Any>?> = _register(InjectedNullableFactoryProperty(Kodein.Key(Kodein.Bind(type, tag), argType)))
 
         /**
          * Creates a property delegate that will hold a factory, or null if none is found.
@@ -248,7 +248,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the factory, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun <T : Any> factoryOrNull(argType: Type, type: Class<T>, tag: Any? = null): InjectedProperty<((Any?) -> T)?> = factoryOrNull(argType, type as Type, tag) as InjectedProperty<((Any?) -> T)?>
+        fun <T : Any> factoryOrNull(argType: Type, type: Class<T>, tag: Any? = null): InjectedProperty<Factory<Any?, T>?> = factoryOrNull(argType, type as Type, tag) as InjectedProperty<Factory<Any?, T>?>
 
         /**
          * Creates a property delegate that will hold a factory, or null if none is found.
@@ -262,7 +262,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the factory, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun <T : Any> factoryOrNull(argType: Type, type: TypeToken<T>, tag: Any? = null): InjectedProperty<((Any?) -> T)?> = factoryOrNull(argType, type.type, tag) as InjectedProperty<((Any?) -> T)?>
+        fun <T : Any> factoryOrNull(argType: Type, type: TypeToken<T>, tag: Any? = null): InjectedProperty<Factory<Any?, T>?> = factoryOrNull(argType, type.type, tag) as InjectedProperty<Factory<Any?, T>?>
 
         /**
          * Creates a property delegate that will hold a factory, or null if none is found.
@@ -276,7 +276,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the factory, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun <A> factoryOrNull(argType: Class<A>, type: Type, tag: Any? = null): InjectedProperty<((A) -> Any)?> = factoryOrNull(argType as Type, type, tag)
+        fun <A> factoryOrNull(argType: Class<A>, type: Type, tag: Any? = null): InjectedProperty<Factory<A, Any>?> = factoryOrNull(argType as Type, type, tag)
 
         /**
          * Creates a property delegate that will hold a factory, or null if none is found.
@@ -291,7 +291,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the factory, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun <A, T : Any> factoryOrNull(argType: Class<A>, type: Class<T>, tag: Any? = null): InjectedProperty<((A) -> T)?> = factoryOrNull(argType as Type, type as Type, tag) as InjectedProperty<((A) -> T)?>
+        fun <A, T : Any> factoryOrNull(argType: Class<A>, type: Class<T>, tag: Any? = null): InjectedProperty<Factory<A, T>?> = factoryOrNull(argType as Type, type as Type, tag) as InjectedProperty<Factory<A, T>?>
 
         /**
          * Creates a property delegate that will hold a factory, or null if none is found.
@@ -306,7 +306,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the factory, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun <A, T : Any> factoryOrNull(argType: Class<A>, type: TypeToken<T>, tag: Any? = null): InjectedProperty<((A) -> T)?> = factoryOrNull(argType as Type, type.type, tag) as InjectedProperty<((A) -> T)?>
+        fun <A, T : Any> factoryOrNull(argType: Class<A>, type: TypeToken<T>, tag: Any? = null): InjectedProperty<Factory<A, T>?> = factoryOrNull(argType as Type, type.type, tag) as InjectedProperty<Factory<A, T>?>
 
         /**
          * Creates a property delegate that will hold a factory, or null if none is found.
@@ -320,7 +320,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the factory, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun <A> factoryOrNull(argType: TypeToken<A>, type: Type, tag: Any? = null): InjectedProperty<((A) -> Any)?> = factoryOrNull(argType.type, type, tag)
+        fun <A> factoryOrNull(argType: TypeToken<A>, type: Type, tag: Any? = null): InjectedProperty<Factory<A, Any>?> = factoryOrNull(argType.type, type, tag)
 
         /**
          * Creates a property delegate that will hold a factory, or null if none is found.
@@ -335,7 +335,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the factory, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun <A, T : Any> factoryOrNull(argType: TypeToken<A>, type: Class<T>, tag: Any? = null): InjectedProperty<((A) -> T)?> = factoryOrNull(argType.type, type as Type, tag) as InjectedProperty<((A) -> T)?>
+        fun <A, T : Any> factoryOrNull(argType: TypeToken<A>, type: Class<T>, tag: Any? = null): InjectedProperty<Factory<A, T>?> = factoryOrNull(argType.type, type as Type, tag) as InjectedProperty<Factory<A, T>?>
 
         /**
          * Creates a property delegate that will hold a factory, or null if none is found.
@@ -350,7 +350,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the factory, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun <A, T : Any> factoryOrNull(argType: TypeToken<A>, type: TypeToken<T>, tag: Any? = null): InjectedProperty<((A) -> T)?> = factoryOrNull(argType.type, type.type, tag) as InjectedProperty<((A) -> T)?>
+        fun <A, T : Any> factoryOrNull(argType: TypeToken<A>, type: TypeToken<T>, tag: Any? = null): InjectedProperty<Factory<A, T>?> = factoryOrNull(argType.type, type.type, tag) as InjectedProperty<Factory<A, T>?>
 
 
 
@@ -364,7 +364,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the provider, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun provider(type: Type, tag: Any? = null): InjectedProperty<() -> Any> = _register(InjectedProviderProperty(Kodein.Bind(type, tag)))
+        fun provider(type: Type, tag: Any? = null): InjectedProperty<Provider<Any>> = _register(InjectedProviderProperty(Kodein.Bind(type, tag)))
 
         /**
          * Creates an injected provider property delegate.
@@ -377,7 +377,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the provider, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun <T : Any> provider(type: Class<T>, tag: Any? = null): InjectedProperty<() -> T> = provider(type as Type, tag) as InjectedProperty<() -> T>
+        fun <T : Any> provider(type: Class<T>, tag: Any? = null): InjectedProperty<Provider<T>> = provider(type as Type, tag) as InjectedProperty<Provider<T>>
 
         /**
          * Creates an injected provider property delegate.
@@ -390,7 +390,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the provider, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun <T : Any> provider(type: TypeToken<T>, tag: Any? = null): InjectedProperty<() -> T> = provider(type.type, tag) as InjectedProperty<() -> T>
+        fun <T : Any> provider(type: TypeToken<T>, tag: Any? = null): InjectedProperty<Provider<T>> = provider(type.type, tag) as InjectedProperty<Provider<T>>
 
 
 
@@ -404,7 +404,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the provider, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun providerOrNull(type: Type, tag: Any? = null): InjectedProperty<(() -> Any)?> = _register(InjectedNullableProviderProperty(Kodein.Bind(type, tag)))
+        fun providerOrNull(type: Type, tag: Any? = null): InjectedProperty<Provider<Any>?> = _register(InjectedNullableProviderProperty(Kodein.Bind(type, tag)))
 
         /**
          * Creates a property delegate that will hold a provider, or null if none is found.
@@ -417,7 +417,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the provider, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun <T : Any> providerOrNull(type: Class<T>, tag: Any? = null): InjectedProperty<(() -> T)?> = providerOrNull(type as Type, tag) as InjectedProperty<(() -> T)?>
+        fun <T : Any> providerOrNull(type: Class<T>, tag: Any? = null): InjectedProperty<Provider<T>?> = providerOrNull(type as Type, tag) as InjectedProperty<Provider<T>?>
 
         /**
          * Creates a property delegate that will hold a provider, or null if none is found.
@@ -430,7 +430,7 @@ class KodeinInjector() : KodeinInjectedBase {
          * @throws Kodein.DependencyLoopException When calling the provider, if the value construction triggered a dependency loop.
          */
         @JvmOverloads
-        fun <T : Any> providerOrNull(type: TypeToken<T>, tag: Any? = null): InjectedProperty<(() -> T)?> = providerOrNull(type.type, tag) as InjectedProperty<(() -> T)?>
+        fun <T : Any> providerOrNull(type: TypeToken<T>, tag: Any? = null): InjectedProperty<Provider<T>?> = providerOrNull(type.type, tag) as InjectedProperty<Provider<T>?>
 
 
 

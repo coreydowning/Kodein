@@ -18,7 +18,7 @@ interface FactoryKodein : Kodein {
      * @throws Kodein.NotFoundException if this binding does not override an existing binding.
      * @throws Kodein.DependencyLoopException When calling the factory function, if the instance construction triggered a dependency loop.
      */
-    fun <A, T : Any> overriddenFactory(): (A) -> T
+    fun <A, T : Any> overriddenFactory(): Factory<A, T>
 
     /**
      * Gets a factory from the overridden binding, if this binding overrides an existing binding.
@@ -28,7 +28,7 @@ interface FactoryKodein : Kodein {
      * @return A factory yielded by the overridden binding, or null if this binding does not override an existing binding.
      * @throws Kodein.DependencyLoopException When calling the factory function, if the instance construction triggered a dependency loop.
      */
-    fun <A, T : Any> overriddenFactoryOrNull(): ((A) -> T)?
+    fun <A, T : Any> overriddenFactoryOrNull(): Factory<A, T>?
 
     /**
      * Gets an instance from the overridden factory binding.
@@ -57,13 +57,13 @@ interface FactoryKodein : Kodein {
 /**
  * Base class that knows how to get an instance.
  *
- * All bindings are bound to a Factory.
+ * All bindings are bound to a FactoryBinding.
  * Whether this factory creates a new instance at each call or not is left to implementation.
  *
  * @param A The type of argument used to create or retrieve an instance.
  * @param T The type of instance this factory creates or retrieves.
  */
-interface Factory<in A, out T : Any> {
+interface FactoryBinding<in A, out T : Any> {
 
     /**
      * Get an instance of type `T` function argument `A`.
@@ -104,14 +104,14 @@ interface Factory<in A, out T : Any> {
 }
 
 /**
- * Factory base.
+ * FactoryBinding base.
  *
- * Enables sub-classes to implement only [Factory.getInstance].
+ * Enables sub-classes to implement only [FactoryBinding.getInstance].
  *
  * @param A The factory argument type.
  * @param T The created type.
  */
-abstract class AFactory<in A, out T : Any>(override val factoryName: String, override val argType: Type, override val createdType: Type) : Factory<A, T> {
+abstract class AFactoryBinding<in A, out T : Any>(override val factoryName: String, override val argType: Type, override val createdType: Type) : FactoryBinding<A, T> {
 
     override val description: String get() = "$factoryName { ${argType.simpleDispString} -> ${createdType.simpleDispString} } "
     override val fullDescription: String get() = "$factoryName { ${argType.fullDispString} -> ${createdType.fullDispString} } "
@@ -132,7 +132,7 @@ class ProviderKodein(private val _kodein: FactoryKodein) : Kodein by _kodein {
      * @throws Kodein.NotFoundException if this binding does not override an existing binding.
      * @throws Kodein.DependencyLoopException When calling the provider function, if the instance construction triggered a dependency loop.
      */
-    fun <T : Any> overriddenProvider(): () -> T = _kodein.overriddenFactory<Unit, T>().toProvider { Unit }
+    fun <T : Any> overriddenProvider(): Provider<T> = _kodein.overriddenFactory<Unit, T>().toProvider { Unit }
 
     /**
      * Gets a provider from the overridden binding, if this binding overrides an existing binding.
@@ -141,7 +141,7 @@ class ProviderKodein(private val _kodein: FactoryKodein) : Kodein by _kodein {
      * @return A provider yielded by the overridden binding, or null if this binding does not override an existing binding.
      * @throws Kodein.DependencyLoopException When calling the provider function, if the instance construction triggered a dependency loop.
      */
-    fun <T : Any> overriddenProviderOrNull(): (() -> T)? = _kodein.overriddenFactoryOrNull<Unit, T>()?.toProvider { Unit }
+    fun <T : Any> overriddenProviderOrNull(): Provider<T>? = _kodein.overriddenFactoryOrNull<Unit, T>()?.toProvider { Unit }
 
     /**
      * Gets an instance from the overridden binding.
@@ -166,11 +166,11 @@ class ProviderKodein(private val _kodein: FactoryKodein) : Kodein by _kodein {
 /**
  * Provider base.
  *
- * A provider is like a [AFactory], but without argument (the [Factory] is registered with a `Unit` argument).
+ * A provider is like a [AFactoryBinding], but without argument (the [FactoryBinding] is registered with a `Unit` argument).
  *
  * @param T The created type.
  */
-abstract class AProvider<out T : Any>(override val factoryName: String, override val createdType: Type) : Factory<Unit, T> {
+abstract class AProviderBinding<out T : Any>(override val factoryName: String, override val createdType: Type) : FactoryBinding<Unit, T> {
 
     /**
      * Get an instance of type `T`.

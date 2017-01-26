@@ -91,7 +91,7 @@ interface Kodein : KodeinAwareBase {
     }
 
     /**
-     * In Kodein, each [Factory] is bound to a Key. A Key holds all information necessary to retrieve a factory (and therefore an instance).
+     * In Kodein, each [FactoryBinding] is bound to a Key. A Key holds all information necessary to retrieve a factory (and therefore an instance).
      *
      * @property bind The left part of the bind declaration.
      * @property argType The argument type of the associated factory (Will be `Unit` for a provider).
@@ -186,7 +186,7 @@ interface Kodein : KodeinAwareBase {
                  * @param factory The factory to bind.
                  * @throws OverridingException If this bindings overrides an existing binding and is not allowed to.
                  */
-                infix fun <R : T> with(factory: Factory<*, R>): Unit = _binder with factory
+                infix fun <R : T> with(factory: FactoryBinding<*, R>): Unit = _binder with factory
             }
 
             /**
@@ -199,12 +199,12 @@ interface Kodein : KodeinAwareBase {
                 /**
                  * Binds the previously given tag to the given factory.
                  *
-                 * The bound type will be the [Factory.createdType].
+                 * The bound type will be the [FactoryBinding.createdType].
                  *
                  * @param factory The factory to bind.
                  * @throws OverridingException If this bindings overrides an existing binding and is not allowed to.
                  */
-                infix fun from(factory: Factory<*, *>): Unit = container.bind(Bind(factory.createdType, _tag), _overrides) with factory
+                infix fun from(factory: FactoryBinding<*, *>): Unit = container.bind(Bind(factory.createdType, _tag), _overrides) with factory
             }
 
             /**
@@ -221,7 +221,7 @@ interface Kodein : KodeinAwareBase {
                  * @param valueType The type to bind the instance to.
                  * @throws OverridingException If this bindings overrides an existing binding and is not allowed to.
                  */
-                fun with(value: Any, valueType: Type): Unit = container.bind(Bind(valueType, _tag), _overrides) with CInstance(valueType, value)
+                fun with(value: Any, valueType: Type): Unit = container.bind(Bind(valueType, _tag), _overrides) with CInstanceBinding(valueType, value)
 
                 /**
                  * Binds the previously given tag to the given instance.
@@ -490,4 +490,4 @@ inline fun Kodein.Builder.bind(tag: Any? = null, overrides: Boolean? = null) = b
  * @param arg A function that provides the argument that will be passed to the factory.
  * @return A provider function that, when called, will call the receiver factory with the given argument.
  */
-inline fun <A, T : Any> ((A) -> T).toProvider(crossinline arg: () -> A): () -> T = { invoke(arg()) }
+inline fun <A, T : Any> Factory<A, T>.toProvider(crossinline arg: () -> A): Provider<T> = { invoke(arg()) }
