@@ -10,8 +10,11 @@ import java.util.*
  *
  * If you want it to be mutable, the [mutable] property needs to be set **before** any dependency retrieval.
  * The non-mutable configuration methods ([addImport], [addExtend] & [addConfig]) needs to happen **before** any dependency retrieval.
+
+ * @param mutable Whether this Kodein can be mutated.
+ * @param allowSilentOverride Whether added configurations block are allowed non-explicit overrides.
  */
-class ConfigurableKodein : Kodein {
+class ConfigurableKodein(mutable: Boolean = false, private var allowSilentOverride: Boolean = false) : Kodein {
 
     /** @suppress */
     override val kodein: Kodein get() = this
@@ -33,20 +36,6 @@ class ConfigurableKodein : Kodein {
         }
 
     /**
-     * Default constructor.
-     */
-    constructor()
-
-    /**
-     * Convenient constructor to directly set the mutability.
-     *
-     * @param mutable Whether this Kodein can be mutated.
-     */
-    constructor(mutable: Boolean) {
-        this.mutable = mutable
-    }
-
-    /**
      * Configuration lambdas.
      *
      * When constructing the Kodein instance (upon first retrieval), all configuration lambdas will be applied.
@@ -57,6 +46,11 @@ class ConfigurableKodein : Kodein {
      * Kodein instance. If it is not null, than it cannot be configured anymore.
      */
     private var _instance: Kodein? = null
+
+    init {
+        if (mutable)
+            this.mutable = mutable
+    }
 
     /**
      * Get the kodein instance if it has already been constructed, or construct it if not.
@@ -74,7 +68,7 @@ class ConfigurableKodein : Kodein {
             if (mutable == null)
                 mutable = false
 
-            _instance = Kodein {
+            _instance = Kodein(allowSilentOverride) {
                 for (config in _configs!!)
                     config()
             }

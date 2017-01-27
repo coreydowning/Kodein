@@ -196,8 +196,8 @@ class KodeinGlobalTests : TestCase() {
     }
 
     @Suppress("EXPERIMENTAL_FEATURE_WARNING")
-    @Test fun test5_0_coroutine() {
-        val kodein = ConfigurableKodein(mutable = true)
+    @Test fun test05_0_coroutine() {
+        val kodein = ConfigurableKodein(mutable = true, allowSilentOverride = true)
         kodein.addConfig {
             constant("lastName") withErased "BRYS_2"
 
@@ -212,11 +212,11 @@ class KodeinGlobalTests : TestCase() {
 
         assertEquals("Benjamin BRYS_2", kodein.erasedInstance<String>("names"))
 
-        kodein.addConfig { constant("lastName", overrides = true) withErased "BRYS_1" }
+        kodein.addConfig { constant("lastName") withErased "BRYS_1" }
 
         assertEquals("Maroussia BRYS_1", kodein.erasedInstance<String>("names"))
 
-        kodein.addConfig { constant("lastName", overrides = true) withErased "BRYS_0" }
+        kodein.addConfig { constant("lastName") withErased "BRYS_0" }
 
         assertEquals("Salomon BRYS_0", kodein.erasedInstance<String>("names"))
         assertEquals("Salomon BRYS_0", kodein.erasedInstance<String>("names"))

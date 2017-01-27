@@ -861,6 +861,7 @@ class KodeinTests : TestCase() {
                     yield("Benjamin " + instance<String>("lastName"))
                     yield("Maroussia " + instance<String>("lastName"))
                 })
+                yieldAll(emptySequence())
                 yield("Salomon " + instance<String>("lastName"))
             }
         }
