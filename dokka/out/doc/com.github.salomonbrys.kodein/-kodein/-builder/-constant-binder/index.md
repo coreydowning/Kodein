@@ -2,7 +2,7 @@
 
 # ConstantBinder
 
-`inner class ConstantBinder`
+`inner class ConstantBinder : Any`
 
 Left part of the constant-binding syntax (`constant(tag)`).
 

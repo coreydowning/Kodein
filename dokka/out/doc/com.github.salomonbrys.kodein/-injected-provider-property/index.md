@@ -2,7 +2,7 @@
 
 # InjectedProviderProperty
 
-`class InjectedProviderProperty<out T : Any> : `[`InjectedProperty`](../-injected-property/index.md)`<() -> T>`
+`class InjectedProviderProperty<out T : Any> : `[`InjectedProperty`](../-injected-property/index.md)`<`[`Provider`](../-provider.md)`<T>>`
 
 A read-only property delegate that injects a provider.
 
@@ -33,7 +33,7 @@ A read-only property delegate that injects a provider.
 
 | Name | Summary |
 |---|---|
-| [_getInjection](_get-injection.md) | `fun _getInjection(container: `[`KodeinContainer`](../-kodein-container/index.md)`): () -> T`<br>Gets the injected value from the container. |
+| [_getInjection](_get-injection.md) | `fun _getInjection(container: `[`KodeinContainer`](../-kodein-container/index.md)`): `[`Provider`](../-provider.md)`<T>`<br>Gets the injected value from the container. |
 
 ### Inherited Functions
 

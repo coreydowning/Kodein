@@ -2,7 +2,7 @@
 
 # bindings
 
-`abstract val bindings: Map<`[`Key`](../-kodein/-key/index.md)`, `[`Factory`](../-factory/index.md)`<*, *>>`
+`abstract val bindings: `[`BindingsMap`](../-bindings-map.md)
 
 An immutable view of the bindings map. *For inspection&amp;debug*.
 

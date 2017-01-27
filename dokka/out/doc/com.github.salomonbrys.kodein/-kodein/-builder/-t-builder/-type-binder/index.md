@@ -2,7 +2,7 @@
 
 # TypeBinder
 
-`inner class TypeBinder<in T : Any>`
+`inner class TypeBinder<in T : Any> : Any`
 
 Left part of the type-binding syntax (`bind(type, tag)`).
 
@@ -14,4 +14,4 @@ Left part of the type-binding syntax (`bind(type, tag)`).
 
 | Name | Summary |
 |---|---|
-| [with](with.md) | `infix fun <R : T> with(factory: `[`Factory`](../../../../-factory/index.md)`<*, R>): Unit`<br>Binds the previously given type and tag to the given factory. |
+| [with](with.md) | `infix fun <R : T> with(factory: `[`FactoryBinding`](../../../../-factory-binding/index.md)`<*, R>): Unit`<br>Binds the previously given type and tag to the given factory. |

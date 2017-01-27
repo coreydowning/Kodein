@@ -2,7 +2,7 @@
 
 # factoryOrNull
 
-`abstract fun factoryOrNull(key: `[`Key`](../-kodein/-key/index.md)`): (Any?) -> Any`
+`abstract fun factoryOrNull(key: `[`Key`](../-kodein/-key/index.md)`): `[`Factory`](../-factory.md)`<Any?, Any>?`
 
 Retrieve a factory for the given key, or null if none is found.
 

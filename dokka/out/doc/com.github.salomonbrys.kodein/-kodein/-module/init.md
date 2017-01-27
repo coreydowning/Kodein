@@ -2,7 +2,7 @@
 
 # init
 
-`val init: `[`Builder`](../-builder/index.md)`.() -> Unit`
+`val init: (`[`Builder`](../-builder/index.md)`) -> Unit`
 
 The block of configuration for this module.
 

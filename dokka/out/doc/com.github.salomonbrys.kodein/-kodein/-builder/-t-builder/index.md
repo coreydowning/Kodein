@@ -2,7 +2,7 @@
 
 # TBuilder
 
-`inner class TBuilder`
+`inner class TBuilder : Any`
 
 Class holding all typed API (meaning the API where you provide [Type](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html), [TypeToken](../../../-type-token/index.md) or `Class` objects).
 
@@ -10,9 +10,9 @@ Class holding all typed API (meaning the API where you provide [Type](http://doc
 
 | Name | Summary |
 |---|---|
-| [ConstantBinder](-constant-binder/index.md) | `inner class ConstantBinder`<br>Left part of the constant-binding syntax (`constant(tag)`). |
-| [DirectBinder](-direct-binder/index.md) | `inner class DirectBinder`<br>Left part of the direct-binding syntax (`bind(tag)`). |
-| [TypeBinder](-type-binder/index.md) | `inner class TypeBinder<in T : Any>`<br>Left part of the type-binding syntax (`bind(type, tag)`). |
+| [ConstantBinder](-constant-binder/index.md) | `inner class ConstantBinder : Any`<br>Left part of the constant-binding syntax (`constant(tag)`). |
+| [DirectBinder](-direct-binder/index.md) | `inner class DirectBinder : Any`<br>Left part of the direct-binding syntax (`bind(tag)`). |
+| [TypeBinder](-type-binder/index.md) | `inner class TypeBinder<in T : Any> : Any`<br>Left part of the type-binding syntax (`bind(type, tag)`). |
 
 ### Constructors
 

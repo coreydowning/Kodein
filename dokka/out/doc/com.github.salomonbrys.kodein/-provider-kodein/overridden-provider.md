@@ -2,7 +2,7 @@
 
 # overriddenProvider
 
-`fun <T : Any> overriddenProvider(): () -> T`
+`abstract fun <T : Any> overriddenProvider(): `[`Provider`](../-provider.md)`<T>`
 
 Gets a provider from the overridden binding.
 

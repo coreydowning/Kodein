@@ -2,7 +2,7 @@
 
 # overriddenProviderOrNull
 
-`fun <T : Any> overriddenProviderOrNull(): () -> T`
+`abstract fun <T : Any> overriddenProviderOrNull(): `[`Provider`](../-provider.md)`<T>?`
 
 Gets a provider from the overridden binding, if this binding overrides an existing binding.
 

@@ -4,7 +4,7 @@
 
 `open val factoryName: String`
 
-Overrides [Factory.factoryName](../-factory/factory-name.md)
+Overrides [FactoryBinding.factoryName](../-factory-binding/factory-name.md)
 
 The name of this factory, *used for debug print only*.
 

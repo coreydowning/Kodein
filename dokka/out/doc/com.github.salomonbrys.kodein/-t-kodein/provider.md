@@ -2,7 +2,7 @@
 
 # provider
 
-`@JvmOverloads fun provider(type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): () -> Any`
+`fun provider(type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): `[`Provider`](../-provider.md)`<Any>`
 
 Gets a provider for the given type and tag.
 
@@ -21,8 +21,8 @@ Gets a provider for the given type and tag.
 **Return**
 A provider.
 
-`@JvmOverloads fun <T : Any> provider(type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): () -> T`
-`@JvmOverloads fun <T : Any> provider(type: `[`TypeToken`](../-type-token/index.md)`<T>, tag: Any? = null): () -> T`
+`fun <T : Any> provider(type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): `[`Provider`](../-provider.md)`<T>`
+`fun <T : Any> provider(type: `[`TypeToken`](../-type-token/index.md)`<T>, tag: Any? = null): `[`Provider`](../-provider.md)`<T>`
 
 Gets a provider of `T` for the given type and tag.
 

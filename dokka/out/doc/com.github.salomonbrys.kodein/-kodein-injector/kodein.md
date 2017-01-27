@@ -2,7 +2,7 @@
 
 # kodein
 
-`fun kodein(): Lazy<`[`Kodein`](../-kodein/index.md)`>`
+`fun kodein(): <ERROR CLASS><`[`Kodein`](../-kodein/index.md)`>`
 
 Creates a property delegate that will hold a Kodein instance.
 

@@ -2,7 +2,7 @@
 
 # with
 
-`infix fun with(factory: `[`Factory`](../../../-factory/index.md)`<*, Any>): Unit`
+`infix fun with(factory: `[`FactoryBinding`](../../../-factory-binding/index.md)`<*, Any>): Unit`
 
 Binds the previously given key to the given factory.
 

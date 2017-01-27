@@ -2,7 +2,7 @@
 
 # DirectBinder
 
-`inner class DirectBinder`
+`inner class DirectBinder : Any`
 
 Left part of the direct-binding syntax (`bind(tag)`).
 
@@ -10,4 +10,4 @@ Left part of the direct-binding syntax (`bind(tag)`).
 
 | Name | Summary |
 |---|---|
-| [from](from.md) | `infix fun from(factory: `[`Factory`](../../../../-factory/index.md)`<*, *>): Unit`<br>Binds the previously given tag to the given factory. |
+| [from](from.md) | `infix fun from(factory: `[`FactoryBinding`](../../../../-factory-binding/index.md)`<*, *>): Unit`<br>Binds the previously given tag to the given factory. |

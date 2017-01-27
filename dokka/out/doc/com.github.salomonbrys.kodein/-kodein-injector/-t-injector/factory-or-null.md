@@ -2,7 +2,7 @@
 
 # factoryOrNull
 
-`@JvmOverloads fun factoryOrNull(argType: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<(Any?) -> Any>`
+`fun factoryOrNull(argType: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<`[`Factory`](../../-factory.md)`<Any?, Any>?>`
 
 Creates a property delegate that will hold a factory, or null if none is found.
 
@@ -23,8 +23,8 @@ Creates a property delegate that will hold a factory, or null if none is found.
 **Return**
 A property delegate that will lazily provide a factory, or null if no factory was found.
 
-`@JvmOverloads fun <T : Any> factoryOrNull(argType: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<(Any?) -> T>`
-`@JvmOverloads fun <T : Any> factoryOrNull(argType: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, type: `[`TypeToken`](../../-type-token/index.md)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<(Any?) -> T>`
+`fun <T : Any> factoryOrNull(argType: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<`[`Factory`](../../-factory.md)`<Any?, T>?>`
+`fun <T : Any> factoryOrNull(argType: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, type: `[`TypeToken`](../../-type-token/index.md)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<`[`Factory`](../../-factory.md)`<Any?, T>?>`
 
 Creates a property delegate that will hold a factory, or null if none is found.
 
@@ -47,8 +47,8 @@ Creates a property delegate that will hold a factory, or null if none is found.
 **Return**
 A property delegate that will lazily provide a factory of `T`, or null if no factory was found.
 
-`@JvmOverloads fun <A> factoryOrNull(argType: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<A>, type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<(A) -> Any>`
-`@JvmOverloads fun <A> factoryOrNull(argType: `[`TypeToken`](../../-type-token/index.md)`<A>, type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<(A) -> Any>`
+`fun <A> factoryOrNull(argType: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<A>, type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<`[`Factory`](../../-factory.md)`<A, Any>?>`
+`fun <A> factoryOrNull(argType: `[`TypeToken`](../../-type-token/index.md)`<A>, type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<`[`Factory`](../../-factory.md)`<A, Any>?>`
 
 Creates a property delegate that will hold a factory, or null if none is found.
 
@@ -71,10 +71,10 @@ Creates a property delegate that will hold a factory, or null if none is found.
 **Return**
 A property delegate that will lazily provide a factory, or null if no factory was found.
 
-`@JvmOverloads fun <A, T : Any> factoryOrNull(argType: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<A>, type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<(A) -> T>`
-`@JvmOverloads fun <A, T : Any> factoryOrNull(argType: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<A>, type: `[`TypeToken`](../../-type-token/index.md)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<(A) -> T>`
-`@JvmOverloads fun <A, T : Any> factoryOrNull(argType: `[`TypeToken`](../../-type-token/index.md)`<A>, type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<(A) -> T>`
-`@JvmOverloads fun <A, T : Any> factoryOrNull(argType: `[`TypeToken`](../../-type-token/index.md)`<A>, type: `[`TypeToken`](../../-type-token/index.md)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<(A) -> T>`
+`fun <A, T : Any> factoryOrNull(argType: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<A>, type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<`[`Factory`](../../-factory.md)`<A, T>?>`
+`fun <A, T : Any> factoryOrNull(argType: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<A>, type: `[`TypeToken`](../../-type-token/index.md)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<`[`Factory`](../../-factory.md)`<A, T>?>`
+`fun <A, T : Any> factoryOrNull(argType: `[`TypeToken`](../../-type-token/index.md)`<A>, type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<`[`Factory`](../../-factory.md)`<A, T>?>`
+`fun <A, T : Any> factoryOrNull(argType: `[`TypeToken`](../../-type-token/index.md)`<A>, type: `[`TypeToken`](../../-type-token/index.md)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<`[`Factory`](../../-factory.md)`<A, T>?>`
 
 Creates a property delegate that will hold a factory, or null if none is found.
 

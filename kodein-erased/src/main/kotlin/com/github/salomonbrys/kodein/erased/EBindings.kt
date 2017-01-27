@@ -71,5 +71,16 @@ inline fun <reified T : Any> Kodein.Builder.threadSingleton(noinline creator: Ko
  */
 inline fun <reified T : Any> Kodein.Builder.instance(instance: T) = erasedInstance(instance)
 
+/**
+ * Creates a sequence provider: each time an instance is needed, the coroutine function [creator] will be resumed.
+ *
+ * The coroutine function can yeild values with [SequenceProviderKodein.yield].
+ *
+ * T generics will be erased!
+ *
+ * @param T The created type.
+ * @param creator The coroutine function that will be resumed each time an instance is requested.
+ * @return A provider ready to be bound.
+ */
 @Suppress("EXPERIMENTAL_FEATURE_WARNING")
 inline fun <reified T : Any> Kodein.Builder.sequence(creator: suspend SequenceProviderKodein<T>.() -> Unit) = erasedSequence(creator)

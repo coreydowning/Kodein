@@ -6,13 +6,13 @@
 
 An injector is an object which creates injected property delegates **before** having access to a Kodein instance.
 
-For example, in Android, you cant access the Kodein instance before onCreate is called:
+For example, in Android, you can't access the Kodein instance before onCreate is called:
 
-```
+``` kotlin
 class MyActivity : Activity() {
     val injector: KodeinInjector()
     val engine: Engine by injector.instance()
-    val random: () -&gt; Int by injector.provider("random")
+    val random: () -> Int by injector.provider("random")
     fun onCreate(savedInstanceState: Bundle) {
         injector.inject(appKodein()) // See Android's documentation for appKodein
         // Here, you can now access engine and random properties.
@@ -24,7 +24,7 @@ class MyActivity : Activity() {
 
 | Name | Summary |
 |---|---|
-| [TInjector](-t-injector/index.md) | `inner class TInjector`<br>Typed API for injection. Can be easily used in Java. |
+| [TInjector](-t-injector/index.md) | `inner class TInjector : Any`<br>Typed API for injection. Can be easily used in Java. |
 
 ### Exceptions
 
@@ -51,26 +51,26 @@ before the KodeinInjector that created this property is [injected](inject.md). |
 | Name | Summary |
 |---|---|
 | [inject](inject.md) | `fun inject(kodein: `[`Kodein`](../-kodein/index.md)`): Unit`<br>Will inject all properties that were created with the [injector](injector.md) with the values found in the provided Kodein object. |
-| [kodein](kodein.md) | `fun kodein(): Lazy<`[`Kodein`](../-kodein/index.md)`>`<br>Creates a property delegate that will hold a Kodein instance. |
+| [kodein](kodein.md) | `fun kodein(): <ERROR CLASS><`[`Kodein`](../-kodein/index.md)`>`<br>Creates a property delegate that will hold a Kodein instance. |
 | [onInjected](on-injected.md) | `fun onInjected(cb: (`[`Kodein`](../-kodein/index.md)`) -> Unit): Unit`<br>Registers a callback to be called once the [injector](injector.md) gets injected with a [Kodein](../-kodein/index.md) object. |
 
 ### Extension Functions
 
 | Name | Summary |
 |---|---|
-| [erasedFactory](../erased-factory.md) | `fun <A, T : Any> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.erasedFactory(tag: Any? = null): `[`InjectedProperty`](../-injected-property/index.md)`<(A) -> T>`<br>Gets a lazy factory for the given type, tag and argument type. |
-| [erasedFactoryOrNull](../erased-factory-or-null.md) | `fun <A, T : Any> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.erasedFactoryOrNull(tag: Any? = null): `[`InjectedProperty`](../-injected-property/index.md)`<(A) -> T>`<br>Gets a lazy factory for the given type, tag and argument type, or null if none is found |
+| [erasedFactory](../erased-factory.md) | `fun <A, T : Any> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.erasedFactory(tag: Any? = null): `[`InjectedProperty`](../-injected-property/index.md)`<`[`Factory`](../-factory.md)`<A, T>>`<br>Gets a lazy factory for the given type, tag and argument type. |
+| [erasedFactoryOrNull](../erased-factory-or-null.md) | `fun <A, T : Any> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.erasedFactoryOrNull(tag: Any? = null): `[`InjectedProperty`](../-injected-property/index.md)`<`[`Factory`](../-factory.md)`<A, T>?>`<br>Gets a lazy factory for the given type, tag and argument type, or null if none is found |
 | [erasedInstance](../erased-instance.md) | `fun <T : Any> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.erasedInstance(tag: Any? = null): `[`InjectedProperty`](../-injected-property/index.md)`<T>`<br>Gets a lazy instance for the given type and tag. |
 | [erasedInstanceOrNull](../erased-instance-or-null.md) | `fun <T : Any> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.erasedInstanceOrNull(tag: Any? = null): `[`InjectedProperty`](../-injected-property/index.md)`<T?>`<br>Gets a lazy instance for the given type and tag. |
-| [erasedProvider](../erased-provider.md) | `fun <T : Any> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.erasedProvider(tag: Any? = null): `[`InjectedProperty`](../-injected-property/index.md)`<() -> T>`<br>Gets a lazy provider for the given type and tag. |
-| [erasedProviderOrNull](../erased-provider-or-null.md) | `fun <T : Any> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.erasedProviderOrNull(tag: Any? = null): `[`InjectedProperty`](../-injected-property/index.md)`<() -> T>`<br>Gets a lazy provider for the given type and tag, or null if none is found. |
-| [genericFactory](../generic-factory.md) | `fun <A, T : Any> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.genericFactory(tag: Any? = null): `[`InjectedProperty`](../-injected-property/index.md)`<(A) -> T>`<br>Gets a lazy factory for the given type, tag and argument type. |
-| [genericFactoryOrNull](../generic-factory-or-null.md) | `fun <A, T : Any> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.genericFactoryOrNull(tag: Any? = null): `[`InjectedProperty`](../-injected-property/index.md)`<(A) -> T>`<br>Gets a lazy factory for the given type, tag and argument type, or null if none is found |
+| [erasedProvider](../erased-provider.md) | `fun <T : Any> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.erasedProvider(tag: Any? = null): `[`InjectedProperty`](../-injected-property/index.md)`<`[`Provider`](../-provider.md)`<T>>`<br>Gets a lazy provider for the given type and tag. |
+| [erasedProviderOrNull](../erased-provider-or-null.md) | `fun <T : Any> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.erasedProviderOrNull(tag: Any? = null): `[`InjectedProperty`](../-injected-property/index.md)`<`[`Provider`](../-provider.md)`<T>?>`<br>Gets a lazy provider for the given type and tag, or null if none is found. |
+| [genericFactory](../generic-factory.md) | `fun <A, T : Any> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.genericFactory(tag: Any? = null): `[`InjectedProperty`](../-injected-property/index.md)`<`[`Factory`](../-factory.md)`<A, T>>`<br>Gets a lazy factory for the given type, tag and argument type. |
+| [genericFactoryOrNull](../generic-factory-or-null.md) | `fun <A, T : Any> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.genericFactoryOrNull(tag: Any? = null): `[`InjectedProperty`](../-injected-property/index.md)`<`[`Factory`](../-factory.md)`<A, T>?>`<br>Gets a lazy factory for the given type, tag and argument type, or null if none is found |
 | [genericInstance](../generic-instance.md) | `fun <T : Any> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.genericInstance(tag: Any? = null): `[`InjectedProperty`](../-injected-property/index.md)`<T>`<br>Gets a lazy instance for the given type and tag. |
 | [genericInstanceOrNull](../generic-instance-or-null.md) | `fun <T : Any> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.genericInstanceOrNull(tag: Any? = null): `[`InjectedProperty`](../-injected-property/index.md)`<T?>`<br>Gets a lazy instance for the given type and tag. |
-| [genericProvider](../generic-provider.md) | `fun <T : Any> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.genericProvider(tag: Any? = null): `[`InjectedProperty`](../-injected-property/index.md)`<() -> T>`<br>Gets a lazy provider for the given type and tag. |
-| [genericProviderOrNull](../generic-provider-or-null.md) | `fun <T : Any> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.genericProviderOrNull(tag: Any? = null): `[`InjectedProperty`](../-injected-property/index.md)`<() -> T>`<br>Gets a lazy provider for the given type and tag, or null if none is found. |
-| [kodein](../kodein.md) | `fun `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.kodein(): Lazy<`[`Kodein`](../-kodein/index.md)`>`<br>Gets a lazy [Kodein](../-kodein/index.md) object. |
+| [genericProvider](../generic-provider.md) | `fun <T : Any> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.genericProvider(tag: Any? = null): `[`InjectedProperty`](../-injected-property/index.md)`<`[`Provider`](../-provider.md)`<T>>`<br>Gets a lazy provider for the given type and tag. |
+| [genericProviderOrNull](../generic-provider-or-null.md) | `fun <T : Any> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.genericProviderOrNull(tag: Any? = null): `[`InjectedProperty`](../-injected-property/index.md)`<`[`Provider`](../-provider.md)`<T>?>`<br>Gets a lazy provider for the given type and tag, or null if none is found. |
+| [kodein](../kodein.md) | `fun `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.kodein(): <ERROR CLASS><`[`Kodein`](../-kodein/index.md)`>`<br>Gets a lazy [Kodein](../-kodein/index.md) object. |
 | [with](../with.md) | `fun <A> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.with(arg: () -> A): `[`CurriedInjectorFactory`](../-curried-injector-factory/index.md)`<A>`<br>`fun <A> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.with(arg: A): `[`CurriedInjectorFactory`](../-curried-injector-factory/index.md)`<A>`<br>Allows to inject a provider or an instance from a curried factory with an `A` argument. |
 | [with](../../com.github.salomonbrys.kodein.erased/with.md) | `fun <A> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.with(arg: () -> A): `[`CurriedInjectorFactory`](../-curried-injector-factory/index.md)`<A>`<br>`fun <A> `[`KodeinInjectedBase`](../-kodein-injected-base/index.md)`.with(arg: A): `[`CurriedInjectorFactory`](../-curried-injector-factory/index.md)`<A>`<br>Allows to inject a provider or an instance from a curried factory with an `A` argument. |
 | [withClassOf](../with-class-of.md) | `fun <T : Any> KodeinInjector.withClassOf(of: T): `[`CurriedInjectorFactory`](../-curried-injector-factory/index.md)`<`[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<*>>`<br>Allows to inject a provider or an instance from a curried factory with a `Class` argument. |

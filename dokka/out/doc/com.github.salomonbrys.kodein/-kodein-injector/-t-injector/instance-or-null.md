@@ -19,8 +19,8 @@ Creates a property delegate that will hold an instance, or null if none is found
 **Return**
 A property delegate that will lazily provide an instance, or null if no provider was found.
 
-`@JvmOverloads fun <T : Any> instanceOrNull(type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<T?>`
-`@JvmOverloads fun <T : Any> instanceOrNull(type: `[`TypeToken`](../../-type-token/index.md)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<T?>`
+`fun <T : Any> instanceOrNull(type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<T?>`
+`fun <T : Any> instanceOrNull(type: `[`TypeToken`](../../-type-token/index.md)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<T?>`
 
 Creates a property delegate that will hold an instance, or null if none is found.
 

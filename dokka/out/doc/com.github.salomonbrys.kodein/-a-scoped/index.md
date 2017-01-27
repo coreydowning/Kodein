@@ -2,7 +2,7 @@
 
 # AScoped
 
-`abstract class AScoped<in A, out C, out T : Any> : `[`Factory`](../-factory/index.md)`<A, T>`
+`abstract class AScoped<in A, out C, out T : Any> : `[`FactoryBinding`](../-factory-binding/index.md)`<A, T>`
 
 A factory to bind a type and tag into a [Scope](../-scope/index.md) or an [AutoScope](../-auto-scope/index.md).
 
@@ -20,7 +20,7 @@ A factory to bind a type and tag into a [Scope](../-scope/index.md) or an [AutoS
 
 | Name | Summary |
 |---|---|
-| [&lt;init&gt;](-init-.md) | `AScoped(argType: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, createdType: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, factoryName: String, _creator: `[`ProviderKodein`](../-provider-kodein/index.md)`.(C) -> T)`<br>A factory to bind a type and tag into a [Scope](../-scope/index.md) or an [AutoScope](../-auto-scope/index.md). |
+| [&lt;init&gt;](-init-.md) | `AScoped(argType: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, createdType: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, factoryName: String, _creator: (`[`ProviderKodein`](../-provider-kodein/index.md)`, C) -> T)`<br>A factory to bind a type and tag into a [Scope](../-scope/index.md) or an [AutoScope](../-auto-scope/index.md). |
 
 ### Properties
 
@@ -34,14 +34,14 @@ A factory to bind a type and tag into a [Scope](../-scope/index.md) or an [AutoS
 
 | Name | Summary |
 |---|---|
-| [description](../-factory/description.md) | `abstract val description: String`<br>The description of this factory (using simple type names), *used for debug print only*. |
-| [fullDescription](../-factory/full-description.md) | `abstract val fullDescription: String`<br>The description of this factory (using full type names), *used for debug print only*. |
+| [description](../-factory-binding/description.md) | `abstract val description: String`<br>The description of this factory (using simple type names), *used for debug print only*. |
+| [fullDescription](../-factory-binding/full-description.md) | `abstract val fullDescription: String`<br>The description of this factory (using full type names), *used for debug print only*. |
 
 ### Functions
 
 | Name | Summary |
 |---|---|
-| [_getContextAndRegistry](_get-context-and-registry.md) | `abstract fun _getContextAndRegistry(arg: A): Pair<C, `[`ScopeRegistry`](../-scope-registry/index.md)`>`<br>Retrieve the scope context and registry associated with the given argument. |
+| [_getContextAndRegistry](_get-context-and-registry.md) | `abstract fun _getContextAndRegistry(arg: A): <ERROR CLASS><C, `[`ScopeRegistry`](../-scope-registry/index.md)`>`<br>Retrieve the scope context and registry associated with the given argument. |
 | [getInstance](get-instance.md) | `open fun getInstance(kodein: `[`FactoryKodein`](../-factory-kodein/index.md)`, key: `[`Key`](../-kodein/-key/index.md)`, arg: A): T`<br>Get an instance of type `T` function argument `A`. |
 
 ### Inheritors

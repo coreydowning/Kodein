@@ -1,3 +1,13 @@
+/!\ WARNING /!\
+---------------
+
+This is the version 4 branch. At the moment, this branch **only exists as an experimentation** to understand how can
+kodein take advantage of Kotlin 1.1, and if using can enhance Kodein's experience.
+
+This branch is *not* published in any Maven repository at the moment.
+
+---
+
 <img alt="KODEIN" src="https://raw.githubusercontent.com/SalomonBrys/Kodein/master/Kodein-logo.png" width="700">
 
 [![Kotlin 1.0](https://img.shields.io/badge/Kotlin-1.0.3-blue.svg)](http://kotlinlang.org)

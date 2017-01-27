@@ -2,11 +2,11 @@
 
 # with
 
-`infix fun with(factory: `[`Factory`](../../../-factory/index.md)`<*, Any>): Unit`
+`infix fun with(factory: `[`FactoryBinding`](../../../-factory-binding/index.md)`<*, Any>): Unit`
 
 Binds the previously given type &amp; tag to the given factory.
 
-The bound type will be the [Factory.createdType](../../../-factory/created-type.md).
+The bound type will be the [FactoryBinding.createdType](../../../-factory-binding/created-type.md).
 
 ### Parameters
 

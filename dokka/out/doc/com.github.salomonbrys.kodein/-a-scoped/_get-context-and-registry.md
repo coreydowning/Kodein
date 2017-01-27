@@ -2,7 +2,7 @@
 
 # _getContextAndRegistry
 
-`protected abstract fun _getContextAndRegistry(arg: A): Pair<C, `[`ScopeRegistry`](../-scope-registry/index.md)`>`
+`protected abstract fun _getContextAndRegistry(arg: A): <ERROR CLASS><C, `[`ScopeRegistry`](../-scope-registry/index.md)`>`
 
 Retrieve the scope context and registry associated with the given argument.
 

@@ -2,7 +2,7 @@
 
 # addConfig
 
-`fun addConfig(config: `[`Builder`](../../com.github.salomonbrys.kodein/-kodein/-builder/index.md)`.() -> Unit): Unit`
+`fun addConfig(config: (`[`Builder`](../../com.github.salomonbrys.kodein/-kodein/-builder/index.md)`) -> Unit): Unit`
 
 Adds a configuration to the bindings that will be applied when the Kodein is constructed.
 

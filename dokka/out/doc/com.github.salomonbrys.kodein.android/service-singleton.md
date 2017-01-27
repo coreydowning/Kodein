@@ -2,7 +2,7 @@
 
 # serviceSingleton
 
-`inline fun <reified T : Any> `[`Builder`](../com.github.salomonbrys.kodein/-kodein/-builder/index.md)`.~~serviceSingleton~~(noinline creator: `[`Kodein`](../com.github.salomonbrys.kodein/-kodein/index.md)`.(Service) -> T): `[`Factory`](../com.github.salomonbrys.kodein/-factory/index.md)`<Service, T>`
+`inline fun <reified T : Any> `[`Builder`](../com.github.salomonbrys.kodein/-kodein/-builder/index.md)`.~~serviceSingleton~~(noinline creator: (`[`Kodein`](../com.github.salomonbrys.kodein/-kodein/index.md)`, Service) -> T): `[`FactoryBinding`](../com.github.salomonbrys.kodein/-factory-binding/index.md)`<Service, T>`
 **Deprecated:** Use scopedSingleton instead.
 
 Creates a service scoped singleton factory, effectively a `factory { Service -> T }`.

@@ -152,6 +152,9 @@ interface Kodein : KodeinAwareBase {
         }
     }
 
+    /**
+     * DSL Marker to prevent binding inside a bind
+     */
     @DslMarker
     annotation class KodeinDsl
 

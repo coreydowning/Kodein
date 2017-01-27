@@ -10,7 +10,7 @@ Constructor with a function (will `lazify` the function).
 
 `f` - A function that returns a Kodein. Guaranteed to be called only once.
 
-`LazyKodein(k: Lazy<`[`Kodein`](../-kodein/index.md)`>)`
+`LazyKodein(k: <ERROR CLASS><`[`Kodein`](../-kodein/index.md)`>)`
 
 An object that wraps a Kodein `Lazy` object and acts both as a `Lazy` property delegate &amp; a function.
 

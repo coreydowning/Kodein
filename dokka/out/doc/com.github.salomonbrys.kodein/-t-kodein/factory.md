@@ -2,7 +2,7 @@
 
 # factory
 
-`@JvmOverloads fun factory(argType: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): (Any?) -> Any`
+`fun factory(argType: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): `[`Factory`](../-factory.md)`<Any?, Any>`
 
 Gets a factory for the given argument type, return type and tag.
 
@@ -23,7 +23,7 @@ Gets a factory for the given argument type, return type and tag.
 **Return**
 A factory.
 
-`@JvmOverloads fun <T : Any> factory(argType: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): (Any?) -> T`
+`fun <T : Any> factory(argType: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): `[`Factory`](../-factory.md)`<Any?, T>`
 
 Gets a factory of `T` for the given argument type, return type and tag.
 
@@ -46,7 +46,7 @@ Gets a factory of `T` for the given argument type, return type and tag.
 **Return**
 A factory ot `T`.
 
-`@JvmOverloads fun <T : Any> factory(argType: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, type: `[`TypeToken`](../-type-token/index.md)`<T>, tag: Any? = null): (Any?) -> T`
+`fun <T : Any> factory(argType: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, type: `[`TypeToken`](../-type-token/index.md)`<T>, tag: Any? = null): `[`Factory`](../-factory.md)`<Any?, T>`
 
 Gets a factory of `T` for the given argument type, return type and tag.
 
@@ -69,8 +69,8 @@ Gets a factory of `T` for the given argument type, return type and tag.
 **Return**
 A factory of `T`.
 
-`@JvmOverloads fun <A> factory(argType: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<A>, type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): (A) -> Any`
-`@JvmOverloads fun <A> factory(argType: `[`TypeToken`](../-type-token/index.md)`<A>, type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): (A) -> Any`
+`fun <A> factory(argType: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<A>, type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): `[`Factory`](../-factory.md)`<A, Any>`
+`fun <A> factory(argType: `[`TypeToken`](../-type-token/index.md)`<A>, type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): `[`Factory`](../-factory.md)`<A, Any>`
 
 Gets a factory for the given argument type, return type and tag.
 
@@ -93,10 +93,10 @@ Gets a factory for the given argument type, return type and tag.
 **Return**
 A factory.
 
-`@JvmOverloads fun <A, T : Any> factory(argType: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<A>, type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): (A) -> T`
-`@JvmOverloads fun <A, T : Any> factory(argType: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<A>, type: `[`TypeToken`](../-type-token/index.md)`<T>, tag: Any? = null): (A) -> T`
-`@JvmOverloads fun <A, T : Any> factory(argType: `[`TypeToken`](../-type-token/index.md)`<A>, type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): (A) -> T`
-`@JvmOverloads fun <A, T : Any> factory(argType: `[`TypeToken`](../-type-token/index.md)`<A>, type: `[`TypeToken`](../-type-token/index.md)`<T>, tag: Any? = null): (A) -> T`
+`fun <A, T : Any> factory(argType: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<A>, type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): `[`Factory`](../-factory.md)`<A, T>`
+`fun <A, T : Any> factory(argType: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<A>, type: `[`TypeToken`](../-type-token/index.md)`<T>, tag: Any? = null): `[`Factory`](../-factory.md)`<A, T>`
+`fun <A, T : Any> factory(argType: `[`TypeToken`](../-type-token/index.md)`<A>, type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): `[`Factory`](../-factory.md)`<A, T>`
+`fun <A, T : Any> factory(argType: `[`TypeToken`](../-type-token/index.md)`<A>, type: `[`TypeToken`](../-type-token/index.md)`<T>, tag: Any? = null): `[`Factory`](../-factory.md)`<A, T>`
 
 Gets a factory of `T` for the given argument type, return type and tag.
 

@@ -2,7 +2,7 @@
 
 # overriddenInstanceOrNull
 
-`fun <T : Any> overriddenInstanceOrNull(): T?`
+`abstract fun <T : Any> overriddenInstanceOrNull(): T?`
 
 Gets an instance from the overridden binding, if this binding overrides an existing binding.
 

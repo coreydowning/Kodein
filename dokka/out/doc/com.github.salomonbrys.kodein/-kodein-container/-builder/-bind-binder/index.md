@@ -2,7 +2,7 @@
 
 # BindBinder
 
-`inner class BindBinder`
+`inner class BindBinder : Any`
 
 Left part of the bind-binding syntax (`bind(Kodein.Bind(type, tag))`).
 
@@ -17,4 +17,4 @@ Left part of the bind-binding syntax (`bind(Kodein.Bind(type, tag))`).
 
 | Name | Summary |
 |---|---|
-| [with](with.md) | `infix fun with(factory: `[`Factory`](../../../-factory/index.md)`<*, Any>): Unit`<br>Binds the previously given type &amp; tag to the given factory. |
+| [with](with.md) | `infix fun with(factory: `[`FactoryBinding`](../../../-factory-binding/index.md)`<*, Any>): Unit`<br>Binds the previously given type &amp; tag to the given factory. |

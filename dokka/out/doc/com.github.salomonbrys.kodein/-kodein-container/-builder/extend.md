@@ -19,4 +19,4 @@ If it is not, overrides (even explicit) will throw an [Kodein.OverridingExceptio
 ### Exceptions
 
 `Kodein.OverridingException` - If this kodein overrides an existing binding and is not allowed to
-OR [allowOverride](extend.md#com.github.salomonbrys.kodein.KodeinContainer.Builder$extend(com.github.salomonbrys.kodein.KodeinContainer, kotlin.Boolean)/allowOverride) is true while YOU dont have the permission to override.
+OR [allowOverride](extend.md#com.github.salomonbrys.kodein.KodeinContainer.Builder$extend(com.github.salomonbrys.kodein.KodeinContainer, kotlin.Boolean)/allowOverride) is true while YOU don't have the permission to override.

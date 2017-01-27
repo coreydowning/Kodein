@@ -2,7 +2,7 @@
 
 # autoActivitySingleton
 
-`inline fun <reified T : Any> `[`Builder`](../com.github.salomonbrys.kodein/-kodein/-builder/index.md)`.~~autoActivitySingleton~~(noinline creator: `[`Kodein`](../com.github.salomonbrys.kodein/-kodein/index.md)`.(Activity) -> T): `[`Factory`](../com.github.salomonbrys.kodein/-factory/index.md)`<Unit, T>`
+`inline fun <reified T : Any> `[`Builder`](../com.github.salomonbrys.kodein/-kodein/-builder/index.md)`.~~autoActivitySingleton~~(noinline creator: (`[`Kodein`](../com.github.salomonbrys.kodein/-kodein/index.md)`, Activity) -> T): `[`FactoryBinding`](../com.github.salomonbrys.kodein/-factory-binding/index.md)`<Unit, T>`
 **Deprecated:** Use autoScopedSingleton instead.
 
 Creates an activity auto-scoped singleton factory, effectively a `provider { -> T }`.

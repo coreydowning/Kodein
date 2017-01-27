@@ -2,7 +2,7 @@
 
 # overriddenFactory
 
-`abstract fun <A, T : Any> overriddenFactory(): (A) -> T`
+`abstract fun <A, T : Any> overriddenFactory(): `[`Factory`](../-factory.md)`<A, T>`
 
 Gets a factory from the overridden binding.
 

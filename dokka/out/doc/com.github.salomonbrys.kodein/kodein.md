@@ -2,7 +2,7 @@
 
 # kodein
 
-`fun `[`KodeinInjectedBase`](-kodein-injected-base/index.md)`.kodein(): Lazy<`[`Kodein`](-kodein/index.md)`>`
+`fun `[`KodeinInjectedBase`](-kodein-injected-base/index.md)`.kodein(): <ERROR CLASS><`[`Kodein`](-kodein/index.md)`>`
 
 Gets a lazy [Kodein](-kodein/index.md) object.
 

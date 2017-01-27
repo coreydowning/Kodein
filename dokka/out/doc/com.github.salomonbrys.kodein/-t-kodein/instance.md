@@ -2,7 +2,7 @@
 
 # instance
 
-`@JvmOverloads fun instance(type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): Any`
+`fun instance(type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): Any`
 
 Gets an instance for the given type and tag.
 
@@ -21,8 +21,8 @@ Gets an instance for the given type and tag.
 **Return**
 An instance.
 
-`@JvmOverloads fun <T : Any> instance(type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): T`
-`@JvmOverloads fun <T : Any> instance(type: `[`TypeToken`](../-type-token/index.md)`<T>, tag: Any? = null): T`
+`fun <T : Any> instance(type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): T`
+`fun <T : Any> instance(type: `[`TypeToken`](../-type-token/index.md)`<T>, tag: Any? = null): T`
 
 Gets an instance of `T` for the given type and tag.
 

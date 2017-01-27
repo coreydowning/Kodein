@@ -2,7 +2,7 @@
 
 # instanceOrNull
 
-`@JvmOverloads fun instanceOrNull(type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): Any?`
+`fun instanceOrNull(type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): Any?`
 
 Gets an instance for the given type and tag, or null if none is found.
 
@@ -19,8 +19,8 @@ Gets an instance for the given type and tag, or null if none is found.
 **Return**
 An instance, or null if no provider was found.
 
-`@JvmOverloads fun <T : Any> instanceOrNull(type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): T?`
-`@JvmOverloads fun <T : Any> instanceOrNull(type: `[`TypeToken`](../-type-token/index.md)`<T>, tag: Any? = null): T?`
+`fun <T : Any> instanceOrNull(type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): T?`
+`fun <T : Any> instanceOrNull(type: `[`TypeToken`](../-type-token/index.md)`<T>, tag: Any? = null): T?`
 
 Gets an instance of `T` for the given type and tag, or null if none is found.
 

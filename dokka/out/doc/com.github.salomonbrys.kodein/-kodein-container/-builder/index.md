@@ -2,7 +2,7 @@
 
 # Builder
 
-`class Builder`
+`class Builder : Any`
 
 This is where you configure the bindings.
 
@@ -16,8 +16,8 @@ This is where you configure the bindings.
 
 | Name | Summary |
 |---|---|
-| [BindBinder](-bind-binder/index.md) | `inner class BindBinder`<br>Left part of the bind-binding syntax (`bind(Kodein.Bind(type, tag))`). |
-| [KeyBinder](-key-binder/index.md) | `inner class KeyBinder`<br>Left part of the key-binding syntax (`bind(Kodein.Key(Kodein.Bind(type, tag), argType))`). |
+| [BindBinder](-bind-binder/index.md) | `inner class BindBinder : Any`<br>Left part of the bind-binding syntax (`bind(Kodein.Bind(type, tag))`). |
+| [KeyBinder](-key-binder/index.md) | `inner class KeyBinder : Any`<br>Left part of the key-binding syntax (`bind(Kodein.Key(Kodein.Bind(type, tag), argType))`). |
 
 ### Functions
 

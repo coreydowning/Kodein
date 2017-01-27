@@ -2,7 +2,7 @@
 
 # ScopeRegistry
 
-`class ScopeRegistry`
+`class ScopeRegistry : Any`
 
 Represents a scope: used to store and retrieve scoped singleton objects.
 

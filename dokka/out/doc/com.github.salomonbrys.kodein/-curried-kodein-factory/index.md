@@ -2,7 +2,7 @@
 
 # CurriedKodeinFactory
 
-`class CurriedKodeinFactory<out A>`
+`class CurriedKodeinFactory<out A> : Any`
 
 Allows to get a provider or an instance from a factory with a curried argument.
 
@@ -38,12 +38,12 @@ A generics will be kept.
 |---|---|
 | [erasedInstance](../erased-instance.md) | `fun <T : Any> CurriedKodeinFactory<*>.erasedInstance(tag: Any? = null): T`<br>Gets an instance of `T` for the given tag from a curried factory with an `A` argument. |
 | [erasedInstanceOrNull](../erased-instance-or-null.md) | `fun <T : Any> CurriedKodeinFactory<*>.erasedInstanceOrNull(tag: Any? = null): T?`<br>Gets an instance of `T` for the given tag from a curried factory with an `A` argument, or null if none is found. |
-| [erasedProvider](../erased-provider.md) | `fun <T : Any> CurriedKodeinFactory<*>.erasedProvider(tag: Any? = null): () -> T`<br>Gets a provider of `T` for the given tag from a curried factory with an `A` argument. |
-| [erasedProviderOrNull](../erased-provider-or-null.md) | `fun <T : Any> CurriedKodeinFactory<*>.erasedProviderOrNull(tag: Any? = null): () -> T`<br>Gets a provider of `T` for the given tag from a curried factory with an `A` argument, or null if none is found. |
+| [erasedProvider](../erased-provider.md) | `fun <T : Any> CurriedKodeinFactory<*>.erasedProvider(tag: Any? = null): `[`Provider`](../-provider.md)`<T>`<br>Gets a provider of `T` for the given tag from a curried factory with an `A` argument. |
+| [erasedProviderOrNull](../erased-provider-or-null.md) | `fun <T : Any> CurriedKodeinFactory<*>.erasedProviderOrNull(tag: Any? = null): `[`Provider`](../-provider.md)`<T>?`<br>Gets a provider of `T` for the given tag from a curried factory with an `A` argument, or null if none is found. |
 | [genericInstance](../generic-instance.md) | `fun <T : Any> CurriedKodeinFactory<*>.genericInstance(tag: Any? = null): T`<br>Gets an instance of `T` for the given tag from a curried factory with an `A` argument. |
 | [genericInstanceOrNull](../generic-instance-or-null.md) | `fun <T : Any> CurriedKodeinFactory<*>.genericInstanceOrNull(tag: Any? = null): T?`<br>Gets an instance of `T` for the given tag from a curried factory with an `A` argument, or null if none is found. |
-| [genericProvider](../generic-provider.md) | `fun <T : Any> CurriedKodeinFactory<*>.genericProvider(tag: Any? = null): () -> T`<br>Gets a provider of `T` for the given tag from a curried factory with an `A` argument. |
-| [genericProviderOrNull](../generic-provider-or-null.md) | `fun <T : Any> CurriedKodeinFactory<*>.genericProviderOrNull(tag: Any? = null): () -> T`<br>Gets a provider of `T` for the given tag from a curried factory with an `A` argument, or null if none is found. |
+| [genericProvider](../generic-provider.md) | `fun <T : Any> CurriedKodeinFactory<*>.genericProvider(tag: Any? = null): `[`Provider`](../-provider.md)`<T>`<br>Gets a provider of `T` for the given tag from a curried factory with an `A` argument. |
+| [genericProviderOrNull](../generic-provider-or-null.md) | `fun <T : Any> CurriedKodeinFactory<*>.genericProviderOrNull(tag: Any? = null): `[`Provider`](../-provider.md)`<T>?`<br>Gets a provider of `T` for the given tag from a curried factory with an `A` argument, or null if none is found. |
 | [instance](../instance.md) | `fun <T : Any> CurriedKodeinFactory<*>.instance(tag: Any? = null): T`<br>Gets an instance of `T` for the given tag from a curried factory with an `A` argument. |
 | [instance](../../com.github.salomonbrys.kodein.erased/instance.md) | `fun <T : Any> CurriedKodeinFactory<*>.instance(tag: Any? = null): T`<br>Gets an instance of `T` for the given tag from a curried factory with an `A` argument. |
 | [instanceOrNull](../instance-or-null.md) | `fun <T : Any> CurriedKodeinFactory<*>.instanceOrNull(tag: Any? = null): T?`<br>Gets an instance of `T` for the given tag from a curried factory with an `A` argument, or null if none is found. |

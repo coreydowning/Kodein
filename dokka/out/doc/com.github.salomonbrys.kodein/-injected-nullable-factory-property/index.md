@@ -2,7 +2,7 @@
 
 # InjectedNullableFactoryProperty
 
-`class InjectedNullableFactoryProperty<in A, out T : Any> : `[`InjectedProperty`](../-injected-property/index.md)`<(A) -> T>`
+`class InjectedNullableFactoryProperty<in A, out T : Any> : `[`InjectedProperty`](../-injected-property/index.md)`<`[`Factory`](../-factory.md)`<A, T>?>`
 
 A read-only property delegate that injects a factory, or null if none is found.
 
@@ -33,7 +33,7 @@ A read-only property delegate that injects a factory, or null if none is found.
 
 | Name | Summary |
 |---|---|
-| [_getInjection](_get-injection.md) | `fun _getInjection(container: `[`KodeinContainer`](../-kodein-container/index.md)`): (A) -> T`<br>Gets the injected value from the container. |
+| [_getInjection](_get-injection.md) | `fun _getInjection(container: `[`KodeinContainer`](../-kodein-container/index.md)`): `[`Factory`](../-factory.md)`<A, T>?`<br>Gets the injected value from the container. |
 
 ### Inherited Functions
 

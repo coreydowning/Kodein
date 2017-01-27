@@ -2,7 +2,7 @@
 
 # TypeToken
 
-`interface TypeToken<T>`
+`interface TypeToken<T> : Any`
 
 An interface that contains a simple [Type](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html) but is parameterized to enable type safety.
 

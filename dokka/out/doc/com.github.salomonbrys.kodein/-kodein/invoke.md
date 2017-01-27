@@ -2,7 +2,7 @@
 
 # invoke
 
-`operator fun invoke(allowSilentOverride: Boolean = false, init: `[`Builder`](-builder/index.md)`.() -> Unit): `[`Kodein`](index.md)
+`operator fun invoke(allowSilentOverride: Boolean = false, init: (`[`Builder`](-builder/index.md)`) -> Unit): `[`Kodein`](index.md)
 
 Creates a [Kodein](index.md) instance.
 

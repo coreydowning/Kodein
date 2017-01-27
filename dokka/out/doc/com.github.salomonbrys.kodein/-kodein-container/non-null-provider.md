@@ -2,7 +2,7 @@
 
 # nonNullProvider
 
-`open fun nonNullProvider(bind: `[`Bind`](../-kodein/-bind/index.md)`): () -> Any`
+`open fun nonNullProvider(bind: `[`Bind`](../-kodein/-bind/index.md)`): `[`Provider`](../-provider.md)`<Any>`
 
 Retrieve a provider for the given bind.
 

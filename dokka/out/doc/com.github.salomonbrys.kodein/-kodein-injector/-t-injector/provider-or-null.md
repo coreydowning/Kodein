@@ -2,7 +2,7 @@
 
 # providerOrNull
 
-`@JvmOverloads fun providerOrNull(type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<() -> Any>`
+`fun providerOrNull(type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<`[`Provider`](../../-provider.md)`<Any>?>`
 
 Creates a property delegate that will hold a provider, or null if none is found.
 
@@ -21,8 +21,8 @@ Creates a property delegate that will hold a provider, or null if none is found.
 **Return**
 A property delegate that will lazily provide a provider, or null if no provider was found.
 
-`@JvmOverloads fun <T : Any> providerOrNull(type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<() -> T>`
-`@JvmOverloads fun <T : Any> providerOrNull(type: `[`TypeToken`](../../-type-token/index.md)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<() -> T>`
+`fun <T : Any> providerOrNull(type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<`[`Provider`](../../-provider.md)`<T>?>`
+`fun <T : Any> providerOrNull(type: `[`TypeToken`](../../-type-token/index.md)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<`[`Provider`](../../-provider.md)`<T>?>`
 
 Creates a property delegate that will hold a provider, or null if none is found.
 

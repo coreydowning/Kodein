@@ -2,7 +2,7 @@
 
 # overriddenInstance
 
-`fun <T : Any> overriddenInstance(): T`
+`abstract fun <T : Any> overriddenInstance(): T`
 
 Gets an instance from the overridden binding.
 

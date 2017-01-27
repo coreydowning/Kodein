@@ -2,7 +2,7 @@
 
 # broadcastReceiverSingleton
 
-`inline fun <reified T : Any> `[`Builder`](../com.github.salomonbrys.kodein/-kodein/-builder/index.md)`.~~broadcastReceiverSingleton~~(noinline creator: `[`Kodein`](../com.github.salomonbrys.kodein/-kodein/index.md)`.(BroadcastReceiver) -> T): `[`Factory`](../com.github.salomonbrys.kodein/-factory/index.md)`<BroadcastReceiver, T>`
+`inline fun <reified T : Any> `[`Builder`](../com.github.salomonbrys.kodein/-kodein/-builder/index.md)`.~~broadcastReceiverSingleton~~(noinline creator: (`[`Kodein`](../com.github.salomonbrys.kodein/-kodein/index.md)`, BroadcastReceiver) -> T): `[`FactoryBinding`](../com.github.salomonbrys.kodein/-factory-binding/index.md)`<BroadcastReceiver, T>`
 **Deprecated:** Use scopedSingleton instead.
 
 Creates a broadcast receiver scoped singleton factory, effectively a `factory { BroadcastReceiver -> T }`.

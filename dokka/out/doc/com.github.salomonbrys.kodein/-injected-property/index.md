@@ -27,16 +27,16 @@ Read only property delegate for an injected value.
 
 | Name | Summary |
 |---|---|
-| [toInstance](../to-instance.md) | `fun <A, T : Any> InjectedProperty<(A) -> T>.toInstance(arg: () -> A): Lazy<T?>`<br>Transforms an injected factory property into an injected instance property by currying the factory with the given argument. |
-| [toProvider](../to-provider.md) | `fun <A, T : Any> InjectedProperty<(A) -> T>.toProvider(arg: () -> A): Lazy<() -> T>`<br>Transforms an injected nullable factory property into an injected nullable provider property by currying the factory with the given argument. |
+| [toInstance](../to-instance.md) | `fun <A, T : Any> InjectedProperty<`[`Factory`](../-factory.md)`<A, T>?>.toInstance(arg: () -> A): <ERROR CLASS><T?>`<br>Transforms an injected factory property into an injected instance property by currying the factory with the given argument. |
+| [toProvider](../to-provider.md) | `fun <A, T : Any> InjectedProperty<`[`Factory`](../-factory.md)`<A, T>?>.toProvider(arg: () -> A): <ERROR CLASS><`[`Provider`](../-provider.md)`<T>?>`<br>Transforms an injected nullable factory property into an injected nullable provider property by currying the factory with the given argument. |
 
 ### Inheritors
 
 | Name | Summary |
 |---|---|
-| [InjectedFactoryProperty](../-injected-factory-property/index.md) | `class InjectedFactoryProperty<in A, out T : Any> : InjectedProperty<(A) -> T>`<br>A read-only property delegate that injects a factory. |
+| [InjectedFactoryProperty](../-injected-factory-property/index.md) | `class InjectedFactoryProperty<in A, out T : Any> : InjectedProperty<`[`Factory`](../-factory.md)`<A, T>>`<br>A read-only property delegate that injects a factory. |
 | [InjectedInstanceProperty](../-injected-instance-property/index.md) | `class InjectedInstanceProperty<out T : Any> : InjectedProperty<T>`<br>A read-only property delegate that injects an instance. |
-| [InjectedNullableFactoryProperty](../-injected-nullable-factory-property/index.md) | `class InjectedNullableFactoryProperty<in A, out T : Any> : InjectedProperty<(A) -> T>`<br>A read-only property delegate that injects a factory, or null if none is found. |
+| [InjectedNullableFactoryProperty](../-injected-nullable-factory-property/index.md) | `class InjectedNullableFactoryProperty<in A, out T : Any> : InjectedProperty<`[`Factory`](../-factory.md)`<A, T>?>`<br>A read-only property delegate that injects a factory, or null if none is found. |
 | [InjectedNullableInstanceProperty](../-injected-nullable-instance-property/index.md) | `class InjectedNullableInstanceProperty<out T : Any> : InjectedProperty<T?>`<br>A read-only property delegate that injects an instance, or null if none is found. |
-| [InjectedNullableProviderProperty](../-injected-nullable-provider-property/index.md) | `class InjectedNullableProviderProperty<out T : Any> : InjectedProperty<() -> T>`<br>A read-only property delegate that injects a provider, or null if none is found. |
-| [InjectedProviderProperty](../-injected-provider-property/index.md) | `class InjectedProviderProperty<out T : Any> : InjectedProperty<() -> T>`<br>A read-only property delegate that injects a provider. |
+| [InjectedNullableProviderProperty](../-injected-nullable-provider-property/index.md) | `class InjectedNullableProviderProperty<out T : Any> : InjectedProperty<`[`Provider`](../-provider.md)`<T>?>`<br>A read-only property delegate that injects a provider, or null if none is found. |
+| [InjectedProviderProperty](../-injected-provider-property/index.md) | `class InjectedProviderProperty<out T : Any> : InjectedProperty<`[`Provider`](../-provider.md)`<T>>`<br>A read-only property delegate that injects a provider. |

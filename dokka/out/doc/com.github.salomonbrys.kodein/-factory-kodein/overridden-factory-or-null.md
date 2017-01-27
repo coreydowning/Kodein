@@ -2,7 +2,7 @@
 
 # overriddenFactoryOrNull
 
-`abstract fun <A, T : Any> overriddenFactoryOrNull(): (A) -> T`
+`abstract fun <A, T : Any> overriddenFactoryOrNull(): `[`Factory`](../-factory.md)`<A, T>?`
 
 Gets a factory from the overridden binding, if this binding overrides an existing binding.
 

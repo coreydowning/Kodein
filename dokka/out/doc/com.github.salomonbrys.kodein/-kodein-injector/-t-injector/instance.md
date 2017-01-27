@@ -2,7 +2,7 @@
 
 # instance
 
-`@JvmOverloads fun instance(type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<Any>`
+`fun instance(type: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<Any>`
 
 Creates an injected instance property delegate.
 
@@ -19,8 +19,8 @@ Creates an injected instance property delegate.
 **Return**
 A property delegate that will lazily provide an instance.
 
-`@JvmOverloads fun <T : Any> instance(type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<T>`
-`@JvmOverloads fun <T : Any> instance(type: `[`TypeToken`](../../-type-token/index.md)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<T>`
+`fun <T : Any> instance(type: `[`Class`](http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<T>`
+`fun <T : Any> instance(type: `[`TypeToken`](../../-type-token/index.md)`<T>, tag: Any? = null): `[`InjectedProperty`](../../-injected-property/index.md)`<T>`
 
 Creates an injected instance property delegate.
 

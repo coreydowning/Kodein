@@ -24,7 +24,7 @@ Concrete scoped singleton factory, effectively a `factory { Scope -> T }`.
 
 | Name | Summary |
 |---|---|
-| [&lt;init&gt;](-init-.md) | `CScopedSingleton(contextType: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, createdType: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, _scope: `[`Scope`](../-scope/index.md)`<C>, creator: `[`ProviderKodein`](../-provider-kodein/index.md)`.(C) -> T)`<br>Concrete scoped singleton factory, effectively a `factory { Scope -> T }`. |
+| [&lt;init&gt;](-init-.md) | `CScopedSingleton(contextType: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, createdType: `[`Type`](http://docs.oracle.com/javase/6/docs/api/java/lang/reflect/Type.html)`, _scope: `[`Scope`](../-scope/index.md)`<C>, creator: (`[`ProviderKodein`](../-provider-kodein/index.md)`, C) -> T)`<br>Concrete scoped singleton factory, effectively a `factory { Scope -> T }`. |
 
 ### Properties
 
@@ -45,4 +45,4 @@ Concrete scoped singleton factory, effectively a `factory { Scope -> T }`.
 
 | Name | Summary |
 |---|---|
-| [_getContextAndRegistry](_get-context-and-registry.md) | `fun _getContextAndRegistry(arg: C): Pair<C, `[`ScopeRegistry`](../-scope-registry/index.md)`>`<br>Retrieve the scope context and registry associated with the given argument. |
+| [_getContextAndRegistry](_get-context-and-registry.md) | `fun _getContextAndRegistry(arg: C): <ERROR CLASS><C, `[`ScopeRegistry`](../-scope-registry/index.md)`>`<br>Retrieve the scope context and registry associated with the given argument. |

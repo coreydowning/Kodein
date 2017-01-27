@@ -4,7 +4,7 @@
 
 `val description: String`
 
-Overrides [Factory.description](../-factory/description.md)
+Overrides [FactoryBinding.description](../-factory-binding/description.md)
 
 The description of this factory (using simple type names), *used for debug print only*.
 

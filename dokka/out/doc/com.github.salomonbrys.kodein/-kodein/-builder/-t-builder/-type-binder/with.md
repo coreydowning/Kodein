@@ -2,7 +2,7 @@
 
 # with
 
-`infix fun <R : T> with(factory: `[`Factory`](../../../../-factory/index.md)`<*, R>): Unit`
+`infix fun <R : T> with(factory: `[`FactoryBinding`](../../../../-factory-binding/index.md)`<*, R>): Unit`
 
 Binds the previously given type and tag to the given factory.
 

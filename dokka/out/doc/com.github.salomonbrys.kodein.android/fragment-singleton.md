@@ -2,7 +2,7 @@
 
 # fragmentSingleton
 
-`inline fun <reified T : Any> `[`Builder`](../com.github.salomonbrys.kodein/-kodein/-builder/index.md)`.~~fragmentSingleton~~(noinline creator: `[`Kodein`](../com.github.salomonbrys.kodein/-kodein/index.md)`.(Fragment) -> T): `[`Factory`](../com.github.salomonbrys.kodein/-factory/index.md)`<Fragment, T>`
+`inline fun <reified T : Any> `[`Builder`](../com.github.salomonbrys.kodein/-kodein/-builder/index.md)`.~~fragmentSingleton~~(noinline creator: (`[`Kodein`](../com.github.salomonbrys.kodein/-kodein/index.md)`, Fragment) -> T): `[`FactoryBinding`](../com.github.salomonbrys.kodein/-factory-binding/index.md)`<Fragment, T>`
 **Deprecated:** Use scopedSingleton instead.
 
 Creates a fragment scoped singleton factory, effectively a `factory { Fragment -> T }`.

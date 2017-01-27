@@ -2,7 +2,7 @@
 
 # Bind
 
-`data class Bind`
+`data class Bind : Any`
 
 Part of a [Key](../-key/index.md) that represents the left part of a bind declaration.
 
