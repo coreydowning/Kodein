@@ -68,3 +68,6 @@ inline fun <reified T : Any> Kodein.Builder.threadSingleton(noinline creator: Pr
  * @return An instance provider ready to be bound.
  */
 inline fun <reified T : Any> Kodein.Builder.instance(instance: T) = genericInstance(instance)
+
+@Suppress("EXPERIMENTAL_FEATURE_WARNING")
+inline fun <reified T : Any> Kodein.Builder.sequence(creator: suspend SequenceProviderKodein<T>.() -> Unit) = genericSequence(creator)

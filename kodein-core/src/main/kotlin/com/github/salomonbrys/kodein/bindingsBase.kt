@@ -124,7 +124,7 @@ abstract class AFactoryBinding<in A, out T : Any>(override val factoryName: Stri
  * It is augmented to allow such methods to access a provider or instance from the binding it is overriding (if it is overriding).
  */
 @Kodein.KodeinDsl
-class ProviderKodein(private val _kodein: FactoryKodein) : Kodein by _kodein {
+interface ProviderKodein : Kodein {
 
     /**
      * Gets a provider from the overridden binding.
@@ -134,7 +134,7 @@ class ProviderKodein(private val _kodein: FactoryKodein) : Kodein by _kodein {
      * @throws Kodein.NotFoundException if this binding does not override an existing binding.
      * @throws Kodein.DependencyLoopException When calling the provider function, if the instance construction triggered a dependency loop.
      */
-    fun <T : Any> overriddenProvider(): Provider<T> = _kodein.overriddenFactory<Unit, T>().toProvider { Unit }
+    fun <T : Any> overriddenProvider(): Provider<T>
 
     /**
      * Gets a provider from the overridden binding, if this binding overrides an existing binding.
@@ -143,7 +143,7 @@ class ProviderKodein(private val _kodein: FactoryKodein) : Kodein by _kodein {
      * @return A provider yielded by the overridden binding, or null if this binding does not override an existing binding.
      * @throws Kodein.DependencyLoopException When calling the provider function, if the instance construction triggered a dependency loop.
      */
-    fun <T : Any> overriddenProviderOrNull(): Provider<T>? = _kodein.overriddenFactoryOrNull<Unit, T>()?.toProvider { Unit }
+    fun <T : Any> overriddenProviderOrNull(): Provider<T>?
 
     /**
      * Gets an instance from the overridden binding.
@@ -153,7 +153,7 @@ class ProviderKodein(private val _kodein: FactoryKodein) : Kodein by _kodein {
      * @throws Kodein.NotFoundException if this binding does not override an existing binding.
      * @throws Kodein.DependencyLoopException If the instance construction triggered a dependency loop.
      */
-    fun <T : Any> overriddenInstance(): T = _kodein.overriddenInstance(Unit)
+    fun <T : Any> overriddenInstance(): T
 
     /**
      * Gets an instance from the overridden binding, if this binding overrides an existing binding.
@@ -162,7 +162,14 @@ class ProviderKodein(private val _kodein: FactoryKodein) : Kodein by _kodein {
      * @return An instance yielded by the overridden binding, or null if this binding does not override an existing binding.
      * @throws Kodein.DependencyLoopException If the instance construction triggered a dependency loop.
      */
-    fun <T : Any> overriddenInstanceOrNull(): T? = _kodein.overriddenInstanceOrNull(Unit)
+    fun <T : Any> overriddenInstanceOrNull(): T?
+}
+
+internal class ProviderKodeinImpl(private val _kodein: FactoryKodein) : ProviderKodein, Kodein by _kodein {
+    override fun <T : Any> overriddenProvider(): Provider<T> = _kodein.overriddenFactory<Unit, T>().toProvider { Unit }
+    override fun <T : Any> overriddenProviderOrNull(): Provider<T>? = _kodein.overriddenFactoryOrNull<Unit, T>()?.toProvider { Unit }
+    override fun <T : Any> overriddenInstance(): T = _kodein.overriddenInstance(Unit)
+    override fun <T : Any> overriddenInstanceOrNull(): T? = _kodein.overriddenInstanceOrNull(Unit)
 }
 
 /**
@@ -184,7 +191,7 @@ abstract class AProviderBinding<out T : Any>(override val factoryName: String, o
      * @param arg: A Unit argument that is ignored (a provider does not take arguments).
      * @return an instance of `T`.
      */
-    override final fun getInstance(kodein: FactoryKodein, key: Kodein.Key, arg: Unit): T = getInstance(ProviderKodein(kodein), key)
+    override final fun getInstance(kodein: FactoryKodein, key: Kodein.Key, arg: Unit): T = getInstance(ProviderKodeinImpl(kodein), key)
 
     /**
      * Get an instance of type `T`.

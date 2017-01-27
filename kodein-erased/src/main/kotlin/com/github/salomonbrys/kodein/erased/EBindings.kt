@@ -70,3 +70,6 @@ inline fun <reified T : Any> Kodein.Builder.threadSingleton(noinline creator: Ko
  * @return An instance provider ready to be bound.
  */
 inline fun <reified T : Any> Kodein.Builder.instance(instance: T) = erasedInstance(instance)
+
+@Suppress("EXPERIMENTAL_FEATURE_WARNING")
+inline fun <reified T : Any> Kodein.Builder.sequence(creator: suspend SequenceProviderKodein<T>.() -> Unit) = erasedSequence(creator)

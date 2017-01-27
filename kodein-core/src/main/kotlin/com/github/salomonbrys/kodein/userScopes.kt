@@ -115,7 +115,7 @@ abstract class AScoped<in A, out C, out T : Any>(
     @Suppress("UNCHECKED_CAST")
     override fun getInstance(kodein: FactoryKodein, key: Kodein.Key, arg: A): T {
         val (context, registry) = _getContextAndRegistry(arg)
-        return registry.getOrCreate(key.bind) { _creator(ProviderKodein(kodein), context) }
+        return registry.getOrCreate(key.bind) { _creator(ProviderKodeinImpl(kodein), context) }
     }
 
     /**
